@@ -1,15 +1,6 @@
-body {
-  margin-top: 60px;
-}
-
 #main-content {
   padding-top: 5px;
   margin-left: 250px;
-}
-
-nav.navbar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: white;
 }
 
 .sidebar {
@@ -26,4 +17,56 @@ nav.navbar {
 .avatar {
   width: 315px;
   height: 315px;
+}
+
+.bg-primary-custom {
+  background-color: #0f8be4;
+}
+
+.link-custom {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.custom-hover:hover {
+  box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+aside {
+  box-shadow: 5px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary-custom {
+  color: white;
+  background-color: #0d2537;
+  padding: 10px 40px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.btn-secondary-custom:hover {
+  color: #0d2537;
+  background-color: #0d253700;
+  border-width: 2px;
+  border-color: #0d2537;
+  box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.text-secondary-custom {
+  color: #0d2537;
+}
+
+.card-logo-login {
+  border-radius: 10px;
+  box-shadow: 5px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-login {
+  border-radius: 10px;
 }
