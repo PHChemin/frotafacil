@@ -35,15 +35,14 @@ class Controller
 
         $view = Constants::rootPath()->join('app/views/' . $view . '.phtml');
 
-        if($layoutName) {
+        if ($layoutName) {
             require Constants::rootPath()->join('app/views/layouts/' . $layoutName . '.phtml');
-        }else {
+        } else {
             require $view;
         }
-        
     }
 
-
+    
     /**
      * @param array<string, mixed> $data
      */
