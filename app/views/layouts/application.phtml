@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rastreador de Problemas</title>
+    <title>FrotaFacil</title>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/assets/js/application.js"></script>
@@ -13,10 +13,30 @@
     <link rel="stylesheet" href="/assets/css/application.css">
 </head>
 
-<body class="">
-    <?php require '_flash_message.phtml'; ?>
+<body>
+    <main class="row h-100 container-fluid">
+        <aside class="col-4 col-md-3 bg-primary-custom  text-center vh-100 position-fixed">
+            <nav class=" d-flex flex-column justify-content-between ms-3 me-3 h-100">
+                <div class="nav-items">
+                    <img class="img-fluid w-75" src="/assets/images/defaults/logo.png" alt="">
+                    <a class="link-custom custom-hover" href="">Opção 01</a>
+                    <a class="link-custom custom-hover" href="">Opção 01</a>
+                    <a class="link-custom custom-hover" href="">Opção 01</a>
+                </div>
+                <div class="nav-items mb-4">
+                    <button class="btn btn-secondary-custom custom-hover w-100">Sair</button>
+                </div>
+            </nav>
+            
+        </aside>    
+        <section class="col-8 col-md-9 offset-md-3 offset-4">
+            <h1 class="mt-2"> <?= $title ?> </h1>
+            <?php require '_flash_message.phtml'; ?>
 
-    <?php require $view ?>
+            <?php require $view ?>
+        </section>
+    </main>
+    
 </body>
 
 </html>

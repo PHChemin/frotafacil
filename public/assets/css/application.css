@@ -1,15 +1,6 @@
-body {
-  margin-top: 60px;
-}
-
 #main-content {
   padding-top: 5px;
   margin-left: 250px;
-}
-
-nav.navbar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: white;
 }
 
 .sidebar {
@@ -26,4 +17,31 @@ nav.navbar {
 .avatar {
   width: 315px;
   height: 315px;
+}
+
+.bg-primary-custom {
+  background-color: #0f8be4 !important; /* Sobrescreve o fundo de classes de utilitários */
+}
+
+.link-custom {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+.custom-hover:hover {
+  box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+aside {
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary-custom {
+  color: white;
+  background-color: #0d2537;
 }
