@@ -19,9 +19,10 @@
             <nav class=" d-flex flex-column justify-content-between ms-3 me-3 h-100">
                 <div class="nav-items">
                     <img class="img-fluid w-75" src="/assets/images/defaults/logo.png" alt="">
-                    <a class="link-custom custom-hover" href="">Opção 01</a>
-                    <a class="link-custom custom-hover" href="">Opção 01</a>
-                    <a class="link-custom custom-hover" href="">Opção 01</a>
+                    <h2 class="mt-2 mb-3 text-secondary-custom">Gestor / Motorista</h2>
+                    <a class="link-custom custom-hover" href="">Frotas</a>
+                    <a class="link-custom custom-hover" href="">Dashboard</a>
+                    <a class="link-custom custom-hover" href="">Perfil</a>
                 </div>
                 <div class="nav-items mb-4">
                     <button class="btn btn-secondary-custom custom-hover w-100">Sair</button>
@@ -30,10 +31,13 @@
             
         </aside>    
         <section class="col-8 col-md-9 offset-md-3 offset-4">
-            <h1 class="mt-2"> <?= $title ?> </h1>
-            <?php require '_flash_message.phtml'; ?>
+            <div class="mt-2 ms-2">
+                <h1> <?= $title ?> </h1>
+                <?php require '_flash_message.phtml'; ?>
 
-            <?php require $view ?>
+                <?php require $view ?>
+            </div>
+            
         </section>
     </main>
     
