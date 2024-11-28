@@ -42,7 +42,7 @@ class Controller
         }
     }
 
-    
+
     /**
      * @param array<string, mixed> $data
      */
