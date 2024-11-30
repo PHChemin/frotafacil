@@ -33,7 +33,7 @@
         <section class="col-8 col-md-9 offset-md-3 offset-4">
             <div class="mt-2 ms-2">
                 <?php require '_flash_message.phtml'; ?>
-                <h1> <?php echo $this->current_user->isManager() ? 'Gestor' : 'Motorista'; ?> </h1>
+                <h1><?php echo $title ?></h1>
                 <?php require $view ?>
             </div>
             

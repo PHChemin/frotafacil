@@ -6,7 +6,7 @@ use Core\Http\Controllers\Controller;
 use Core\Http\Request;
 use Lib\Authentication\Auth;
 
-class DriverController extends Controller
+class DriversController extends Controller
 {
     protected ?\App\Models\User $current_user;
 

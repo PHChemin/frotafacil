@@ -32,12 +32,12 @@ class User extends Model
 
     public function isManager(): bool
     {
-        return !is_null(Manager::findBy(['user_id' => $this->id]));
+        return Manager::findBy(['user_id' => $this->id]) !== 'null';
     }
 
     public function isDriver(): bool
     {
-        return !is_null(Driver::findBy(['user_id' => $this->id]));
+        return Driver::findBy(['user_id' => $this->id]) !== 'null';
     }
 
     public function manager(): ?Manager
@@ -55,6 +55,8 @@ class User extends Model
         Validations::notEmpty('cpf', $this);
         Validations::notEmpty('password', $this);
         Validations::uniqueness('cpf', $this);
+
+        // TODO Validate cpf number
     }
 
     public function authenticate(string $password): bool

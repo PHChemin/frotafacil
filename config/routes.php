@@ -1,9 +1,9 @@
 <?php
 
 use App\Controllers\AuthenticationsController;
-use App\Controllers\DriverController;
+use App\Controllers\DriversController;
 use App\Controllers\HomeController;
-use App\Controllers\ManagerController;
+use App\Controllers\ManagersController;
 use Core\Router\Route;
 
 // Authentication
@@ -13,9 +13,9 @@ Route::post('/login', [AuthenticationsController::class, 'authenticate'])->name(
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthenticationsController::class, 'destroy'])->name('users.logout');
-    Route::get('/driver', [DriverController::class, 'index'])->name('driver.index');
+    Route::get('/driver', [DriversController::class, 'index'])->name('driver.index');
 
     Route::middleware('manager')->group(function () {
-        Route::get('/manager', [ManagerController::class, 'index'])->name('manager.index');
+        Route::get('/manager', [ManagersController::class, 'index'])->name('manager.index');
     });
 });
