@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Problems;
+namespace Tests\Browser\Manager;
 
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
 

@@ -6,5 +6,4 @@ use Core\Database\Database;
 use Database\Populate\usersPopulate;
 
 Database::migrate();
-usersPopulate::populate();
-
+UsersPopulate::populate();
