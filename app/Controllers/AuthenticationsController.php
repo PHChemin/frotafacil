@@ -20,16 +20,34 @@ class AuthenticationsController extends Controller
     {
         $params = $request->getParam('user');
         $user = User::findBy(['cpf' => $params['cpf']]);
-        
-        if($user && $user->authenticate($params['password'])) {
+
+        if ($user && $user->authenticate($params['password'])) {
             Auth::login($user);
             FlashMessage::success('Login realizado com sucesso!');
-            $this->redirectTo(route('users.manager'));
+            if ($user->isManager()) {
+                $this->redirectTo(route('manager.index'));
+            } else {
+                $this->redirectTo(route('driver.index'));
+            }
         } else {
             FlashMessage::danger('Email e/ou senha inválidos!');
             $this->redirectTo(route('users.login'));
         }
+    }
 
+    public function checkLogin(Request $request): void
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            if ($user->isManager()) {
+                $this->redirectTo(route('manager.index'));
+            } else {
+                $this->redirectTo(route('driver.index'));
+            }
+        } else {
+            $this->redirectTo(route('users.login'));
+        }
     }
 
     public function destroy(): void

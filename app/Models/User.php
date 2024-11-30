@@ -12,7 +12,7 @@ use PhpParser\Node\Expr\Cast\Object_;
  * @property string $encrypted_password
  * @property string|null $name
  * @property string|null $email
- * 
+ *
  *
  * */
 class User extends Model
@@ -22,7 +22,7 @@ class User extends Model
         'cpf',
         'encrypted_password',
         'name',
-        'email',
+        'email'
     ];
 
     protected array $errors = [];
@@ -30,9 +30,24 @@ class User extends Model
     protected ?string $password = null;
     protected ?string $password_confirmation = null;
 
-    public function isAdmin(): bool
+    public function isManager(): bool
     {
-        return $this->role === 'admin';
+        return !is_null(Manager::findBy(['user_id' => $this->id]));
+    }
+
+    public function isDriver(): bool
+    {
+        return !is_null(Driver::findBy(['user_id' => $this->id]));
+    }
+
+    public function manager(): ?Manager
+    {
+        return Manager::findBy(['user_id' => $this->id]);
+    }
+
+    public function driver(): ?Driver
+    {
+        return Driver::findBy(['user_id' => $this->id]);
     }
 
     public function validates(): void
