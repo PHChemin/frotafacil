@@ -24,17 +24,16 @@
                     <a class="link-custom custom-hover" href="">Dashboard</a>
                     <a class="link-custom custom-hover" href="">Perfil</a>
                 </div>
-                <div class="nav-items mb-4">
-                    <button class="btn btn-secondary-custom custom-hover w-100">Sair</button>
-                </div>
+                <form action="/logout" method="GET" class="nav-items mb-4">
+                    <button type="submit" class="btn btn-secondary-custom custom-hover w-100">Sair</button>
+                </form>
             </nav>
             
         </aside>    
         <section class="col-8 col-md-9 offset-md-3 offset-4">
             <div class="mt-2 ms-2">
-                <h1> <?= $title ?> </h1>
                 <?php require '_flash_message.phtml'; ?>
-
+                <h1> <?= $title ?> </h1>
                 <?php require $view ?>
             </div>
             

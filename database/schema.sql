@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cpf CHAR(11) NOT NULL,
-    password VARCHAR(45) NOT NULL,
+    encrypted_password VARCHAR(255) NOT NULL,
     name VARCHAR(95),
     email VARCHAR(255)
 );
