@@ -13,7 +13,10 @@ Route::post('/login', [AuthenticationsController::class, 'authenticate'])->name(
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthenticationsController::class, 'destroy'])->name('users.logout');
-    Route::get('/driver', [DriversController::class, 'index'])->name('driver.index');
+
+    Route::middleware('driver')->group(function () {
+        Route::get('/driver', [DriversController::class, 'index'])->name('driver.index');
+    });
 
     Route::middleware('manager')->group(function () {
         Route::get('/manager', [ManagersController::class, 'index'])->name('manager.index');

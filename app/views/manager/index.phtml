@@ -1,9 +1,5 @@
 <p> Esta é a página inicial para os <strong>Gestores</strong></p>
-<p>ID: <?php
-
-use App\Models\Manager;
-
- echo $this->current_user->id; ?> </p>
+<p>ID Usuário: <?php echo $this->current_user->id; ?> </p>
 <p>Nome: <?php echo $this->current_user->name; ?> </p>
 <p>CPF: <?php echo $this->current_user->cpf; ?> </p>
 <p>EMAIL: <?php echo $this->current_user->email; ?> </p>

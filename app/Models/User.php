@@ -32,12 +32,12 @@ class User extends Model
 
     public function isManager(): bool
     {
-        return Manager::findBy(['user_id' => $this->id]) !== 'null';
+        return Manager::findBy(['user_id' => $this->id]) !== null;
     }
 
     public function isDriver(): bool
     {
-        return Driver::findBy(['user_id' => $this->id]) !== 'null';
+        return Driver::findBy(['user_id' => $this->id]) !== null;
     }
 
     public function manager(): ?Manager

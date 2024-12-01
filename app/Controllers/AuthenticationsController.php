@@ -24,13 +24,15 @@ class AuthenticationsController extends Controller
         if ($user && $user->authenticate($params['password'])) {
             Auth::login($user);
             FlashMessage::success('Login realizado com sucesso!');
-            if ($user->isManager()) {
-                $this->redirectTo(route('manager.index'));
-            } else {
+
+            // Verificar tipo de usuário
+            if ($user->isDriver()) {
                 $this->redirectTo(route('driver.index'));
+            } else {
+                $this->redirectTo(route('manager.index'));
             }
         } else {
-            FlashMessage::danger('Email e/ou senha inválidos!');
+            FlashMessage::danger('CPF e/ou senha inválidos!');
             $this->redirectTo(route('users.login'));
         }
     }

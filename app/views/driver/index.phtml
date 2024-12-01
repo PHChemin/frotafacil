@@ -1,1 +1,6 @@
 <p> Esta é a página inicial para os <strong>Motoristas</strong></p>
+<p>ID Usuário: <?php echo $this->current_user->id; ?> </p>
+<p>Nome: <?php echo $this->current_user->name; ?> </p>
+<p>CPF: <?php echo $this->current_user->cpf; ?> </p>
+<p>EMAIL: <?php echo $this->current_user->email; ?> </p>
+<p>ID Driver: <?php echo $this->current_user->driver()->id; ?> </p>
