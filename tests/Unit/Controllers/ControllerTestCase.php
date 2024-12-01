@@ -40,4 +40,20 @@ abstract class ControllerTestCase extends TestCase
             ob_end_clean();
         }
     }
+
+    public function post(string $action, string $controller): string
+    {
+        $controller = new $controller();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        ob_start();
+        try {
+            $controller->$action($this->request);
+            return ob_get_contents();
+        } catch (\Exception $e) {
+            throw $e;
+        } finally {
+            ob_end_clean();
+        }
+    }
 }

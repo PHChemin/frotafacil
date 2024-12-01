@@ -7,7 +7,7 @@ use Core\Http\Request;
 use Lib\Authentication\Auth;
 use Lib\FlashMessage;
 
-class ManagerAuthenticate implements Middleware
+class DriverAuthenticate implements Middleware
 {
     public function handle(Request $request): void
     {
@@ -18,9 +18,9 @@ class ManagerAuthenticate implements Middleware
             $this->redirectTo(route('users.login'));
         }
 
-        if ($user->isDriver()) {
-            FlashMessage::danger('Motoristas não têm permissão para acessar a página de gestores!');
-            $this->redirectTo(route('driver.index'));
+        if ($user->isManager()) {
+            FlashMessage::danger('Gerentes não têm permissão para acessar a página de motoristas!');
+            $this->redirectTo(route('manager.index'));
         }
     }
 
