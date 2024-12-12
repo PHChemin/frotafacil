@@ -8,7 +8,7 @@ use Lib\Validations;
 
 /**
  * @property int $id
- * @property string $license_category
+ * @property string $name
  * @property int $manager_id
  *
  *
@@ -48,7 +48,7 @@ class Fleet extends Model
         return $this->errors;
     }
 
-    private function managerExists(): bool 
+    private function managerExists(): bool
     {
         $managers = Manager::all();
         foreach ($managers as $manager) {
@@ -60,5 +60,4 @@ class Fleet extends Model
         $this->addError('manager_id', 'does not exist!');
         return false;
     }
-
 }
