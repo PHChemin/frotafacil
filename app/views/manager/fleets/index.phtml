@@ -1,0 +1,6 @@
+<h2>ID User: <?= $fleets[0]->manager->user->id ?> Nome: <?= $fleets[0]->manager->user->name ?></h2>
+<?php foreach ($fleets as $fleet) : ?>
+    <p>Id: <?= $fleet->id ?></p>
+    <p>Nome: <?= $fleet->name ?></p>
+    <p>Manager ID: <?= $fleet->manager->id ?></p>
+<?php endforeach; ?>

@@ -29,7 +29,7 @@ class AuthenticationsController extends Controller
             if ($user->isDriver()) {
                 $this->redirectTo(route('driver.index'));
             } else {
-                $this->redirectTo(route('manager.index'));
+                $this->redirectTo(route('fleets.index'));
             }
         } else {
             FlashMessage::danger('CPF e/ou senha inválidos!');
@@ -43,7 +43,7 @@ class AuthenticationsController extends Controller
 
         if ($user) {
             if ($user->isManager()) {
-                $this->redirectTo(route('manager.index'));
+                $this->redirectTo(route('fleets.index'));
             } else {
                 $this->redirectTo(route('driver.index'));
             }

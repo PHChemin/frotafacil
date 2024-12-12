@@ -25,7 +25,7 @@ CREATE TABLE users (
 CREATE TABLE managers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE NO ACTION
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Tabela de motoristas
@@ -35,7 +35,7 @@ CREATE TABLE drivers (
     license_category VARCHAR(9),
     gender CHAR(1),
     commission_percent DECIMAL(5,2),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE NO ACTION
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Tabela de frotas
@@ -43,7 +43,7 @@ CREATE TABLE fleets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
     manager_id INT NOT NULL,
-    FOREIGN KEY (manager_id) REFERENCES managers(id) ON DELETE NO ACTION
+    FOREIGN KEY (manager_id) REFERENCES managers(id) ON DELETE CASCADE
 );
 
 -- Tabela de marcas de caminhões
@@ -63,7 +63,7 @@ CREATE TABLE trucks (
     fleet_id INT NOT NULL,
     driver_id INT NOT NULL,
     FOREIGN KEY (truck_brand_id) REFERENCES truck_brands(id) ON DELETE NO ACTION,
-    FOREIGN KEY (fleet_id) REFERENCES fleets(id) ON DELETE NO ACTION,
+    FOREIGN KEY (fleet_id) REFERENCES fleets(id) ON DELETE CASCADE,
     FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE NO ACTION
 );
 

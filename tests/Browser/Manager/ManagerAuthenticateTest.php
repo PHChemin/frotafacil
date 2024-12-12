@@ -8,7 +8,7 @@ class ManagerAuthenticateTest extends FrameworkTestCase
 {
     public function test_should_redirect_if_not_authenticated_to_index(): void
     {
-        $page = file_get_contents('http://web/manager');
+        $page = file_get_contents('http://web/manager/fleets');
 
         $statusCode = $http_response_header[0];
         $location = $http_response_header[10];
