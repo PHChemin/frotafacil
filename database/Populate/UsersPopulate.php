@@ -11,17 +11,33 @@ class UsersPopulate
 {
     public static function populate(): void
     {
-        $managerData = [
-            'name' => 'Manager Name',
-            'email' => 'manager@example.com',
+        $user1 = new User([
+            'name' => 'Gestor exemplo',
+            'email' => 'managerexample@example.com',
             'cpf' => '12345678901',
             'password' => 'password123'
-        ];
-        $managerUser = new User($managerData);
-        $managerUser->save();
+        ]);
+        $user1->save();
 
-        $manager = new Manager(['user_id' => $managerUser->id]);
-        $manager->save();
+        $manager1 = new Manager(['user_id' => $user1->id]);
+        $manager1->save();
+
+        $numberOfUsers = 4;
+
+        for ($i = 0; $i < $numberOfUsers; $i++) {
+            $managerData = [
+                'name' => 'Manager '. $i . ' Name',
+                'email' => 'manager' . $i . '@example.com',
+                'cpf' => '1234567890' . ($i + 2),
+                'password' => 'password123'
+            ];
+
+            $managerUser = new User($managerData);
+            $managerUser->save();
+
+            $manager = new Manager(['user_id' => $managerUser->id]);
+            $manager->save();
+        }
 
         $driverData = [
             'name' => 'Driver Name',

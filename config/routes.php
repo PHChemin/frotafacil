@@ -2,6 +2,7 @@
 
 use App\Controllers\AuthenticationsController;
 use App\Controllers\DriversController;
+use App\Controllers\FleetsController;
 use App\Controllers\HomeController;
 use App\Controllers\ManagersController;
 use Core\Router\Route;
@@ -19,6 +20,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('manager')->group(function () {
-        Route::get('/manager', [ManagersController::class, 'index'])->name('manager.index');
+        Route::get('/manager/fleets', [FleetsController::class, 'index'])->name('fleets.index');
     });
 });
