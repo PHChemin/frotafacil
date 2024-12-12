@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Core\Database\ActiveRecord\BelongsTo;
+use Core\Database\ActiveRecord\HasMany;
 use Core\Database\ActiveRecord\Model;
 
 /**
@@ -22,6 +23,11 @@ class Manager extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function fleets(): HasMany
+    {
+        return $this->hasMany(Fleet::class, 'manager_id');
     }
 
     public function validates(): void
