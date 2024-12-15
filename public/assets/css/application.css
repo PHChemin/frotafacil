@@ -70,3 +70,7 @@ aside {
 .card-login {
   border-radius: 10px;
 }
+
+.card-fleet-size {
+  height: 300px;
+}
