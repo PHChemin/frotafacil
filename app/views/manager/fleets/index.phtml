@@ -1,13 +1,17 @@
 <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Frotas</h1>
+        <a href=""><i class="bi bi-plus-square-fill text-success fs-2"></i></a>
+    </div>
     <div class="row">
         <?php foreach ($fleets as $fleet) : ?>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 g-4 mb-2">
-                <div class="card card-fleet-size">
+                <div class="card">
                     <img src="/assets/images/defaults/frota-card.png" class="card-img-top" alt="card-image">
                     <div class="card-body">
                         <h5 class="card-title"><?= $fleet->name ?></h5>
                         <div class="text-end">
-                            <button class="btn btn-sm btn-secondary-custom custom-hover w-100">Ver mais</button>
+                            <a class="btn btn-sm btn-secondary-custom custom-hover w-100">Ver mais</a>
                         </div>
                     </div>
                 </div>

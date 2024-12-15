@@ -58,6 +58,22 @@ aside {
   box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.btn-danger-custom {
+  color: white;
+  background-color: #8a0000;
+  padding: 10px 40px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.btn-danger-custom:hover {
+  color: white;
+  background-color: #8a0000;
+  padding: 10px 40px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
 .text-secondary-custom {
   color: #0d2537;
 }
