@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <h1><?= $fleet->name ?></h1>
         <div class="d-flex align-items-center">
-            <a href="<?= route('fleets.show', ['id' => $fleet->id]) ?>" ><i class="bi bi-pencil-square text-secondary-custom fs-2 me-3"></i></a>
+            <a href="<?= route('fleets.edit', ['id' => $fleet->id]) ?>" ><i class="bi bi-pencil-square text-secondary-custom fs-2 me-3"></i></a>
             <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bi bi-trash3 text-danger-custom fs-2"></i>
             </button>

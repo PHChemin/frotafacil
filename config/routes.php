@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('manager')->group(function () {
+        // FLEETS
         // Create
         Route::get('/manager/fleets/new', [FleetsController::class, 'new'])->name('fleets.new');
         Route::post('/manager/fleets', [FleetsController::class, 'create'])->name('fleets.create');
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/fleets', [FleetsController::class, 'index'])->name('fleets.index');
         Route::get('/manager/fleets/{id}', [FleetsController::class, 'show'])->name('fleets.show');
         
+        // Update
+        Route::get('/manager/fleets/{id}/edit', [FleetsController::class, 'edit'])->name('fleets.edit');
+        Route::put('/manager/fleets/{id}', [FleetsController::class, 'update'])->name('fleets.update');
+
         // Delete
         Route::delete('/manager/fleets/{id}', [FleetsController::class, 'destroy'])->name('fleets.destroy');
     });

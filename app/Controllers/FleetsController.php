@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Fleet;
 use Core\Http\Controllers\Controller;
 use Core\Http\Request;
 use Lib\Authentication\Auth;
@@ -41,6 +42,31 @@ class FleetsController extends Controller
         } else {
             FlashMessage::danger('Existem dados incorretos! Por favor verifique!');
             $this->render('manager/fleets/new', compact('fleet'), 'application');
+        }
+    }
+
+    public function edit(Request $request): void
+    {
+        $params = $request->getParams();
+        $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
+
+        $this->render('manager/fleets/edit', compact('fleet'), 'application');
+    }
+
+    public function update(Request $request): void
+    {
+        $id = $request->getParam('id');
+        $params = $request->getParam('fleet');
+
+        $fleet = $this->current_user->manager()->fleets()->findById($id);
+        $fleet->name = $params['name'];
+
+        if($fleet->save()) {
+            FlashMessage::success('Frota editada com sucesso!');
+            $this->redirectTo($fleet->id);
+        } else {
+            FlashMessage::danger('Existem dados incorretos! Por favor verifique!');
+            $this->render('manager/fleets/edit', compact('fleet'), 'application');
         }
     }
 
