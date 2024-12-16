@@ -74,6 +74,10 @@ aside {
   font-weight: bold;
 }
 
+.text-danger-custom {
+  color: #8a0000;
+}
+
 .text-secondary-custom {
   color: #0d2537;
 }

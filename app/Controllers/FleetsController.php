@@ -15,6 +15,14 @@ class FleetsController extends Controller
         $this->render('manager/fleets/index', compact('fleets'), 'application');
     }
 
+    public function show(Request $request): void
+    {
+        $params = $request->getParams();
+        $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
+
+        $this->render('manager/fleets/show', compact('fleet'), 'application');
+    }
+
     public function new(): void
     {
         $fleet = $this->current_user->manager()->fleets()->new();
@@ -34,5 +42,16 @@ class FleetsController extends Controller
             FlashMessage::danger('Existem dados incorretos! Por favor verifique!');
             $this->render('manager/fleets/new', compact('fleet'), 'application');
         }
+    }
+
+    public function destroy(Request $request): void
+    {
+        $params = $request->getParams();
+
+        $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
+        $fleet->destroy();
+
+        FlashMessage::success('Frota removida com sucesso!');
+        $this->redirectTo(route('fleets.index'));
     }
 }

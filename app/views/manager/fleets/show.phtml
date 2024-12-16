@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1><?= $fleet->name ?></h1>
+        <div class="d-flex align-items-center">
+            <a href="<?= route('fleets.show', ['id' => $fleet->id]) ?>" ><i class="bi bi-pencil-square text-secondary-custom fs-2 me-3"></i></a>
+            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bi bi-trash3 text-danger-custom fs-2"></i>
+            </button>
+        </div>
+    </div>
+    <p>Seus caminhões...</p>
+</div>
+
+<!-- Modal de Confirmação da Exclusão -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Você tem certeza de que deseja excluir esta frota? Esta ação não pode ser desfeita.</p>
+        <p class="text-danger-custom">Todos os dados vinculados a frota serão excluidos!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form action="<?= route('fleets.destroy', ['id' => $fleet->id]) ?>" method="POST" id="deleteFleetForm">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

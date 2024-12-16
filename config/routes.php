@@ -24,7 +24,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/fleets/new', [FleetsController::class, 'new'])->name('fleets.new');
         Route::post('/manager/fleets', [FleetsController::class, 'create'])->name('fleets.create');
 
+        // Retrieve
         Route::get('/manager/fleets', [FleetsController::class, 'index'])->name('fleets.index');
+        Route::get('/manager/fleets/{id}', [FleetsController::class, 'show'])->name('fleets.show');
         
+        // Delete
+        Route::delete('/manager/fleets/{id}', [FleetsController::class, 'destroy'])->name('fleets.destroy');
     });
 });
