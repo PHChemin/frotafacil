@@ -20,7 +20,7 @@
                 <div class="nav-items">
                     <img class="img-fluid w-75" src="/assets/images/defaults/logo.png" alt="">
                     <h2 class="mt-2 mb-3 text-secondary-custom"><?php echo $this->current_user->isManager() ? 'Gestor' : 'Motorista'; ?></h2>
-                    <a class="link-custom custom-hover" href="">Frotas</a>
+                    <a class="link-custom custom-hover" href="<?= route('fleets.index') ?>">Frotas</a>
                     <a class="link-custom custom-hover" href="">Dashboard</a>
                     <a class="link-custom custom-hover" href="">Perfil</a>
                 </div>

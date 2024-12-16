@@ -37,7 +37,7 @@ class Fleet extends Model
 
     public function addError(string $attribute, string $message): void
     {
-        $this->errors[] = "{$attribute} {$message}";
+        $this->errors[$attribute] = "{$attribute} {$message}";
     }
 
     /**

@@ -1,0 +1,11 @@
+<h1>Nova frota</h1>
+<form action="<?= route('fleets.create') ?>" method="POST" class="<?= $fleet->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+    <div class="mb-3">
+        <label for="fleet_name" class="form-label">Nome:</label>
+        <input type="text" value="<?= $fleet->name ?>" name="fleet[name]" class="form-control" id="fleet_title" required>
+        <div class="invalid-feedback"><?= $fleet->errors('name') ? 'O campo nome não pode estar vazio!' : '' ?></div>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">Adicionar</button>
+    </div>
+</form>

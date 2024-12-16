@@ -20,6 +20,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('manager')->group(function () {
+        // Create
+        Route::get('/manager/fleets/new', [FleetsController::class, 'new'])->name('fleets.new');
+        Route::post('/manager/fleets', [FleetsController::class, 'create'])->name('fleets.create');
+
         Route::get('/manager/fleets', [FleetsController::class, 'index'])->name('fleets.index');
+        
     });
 });
