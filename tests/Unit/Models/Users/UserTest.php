@@ -93,16 +93,16 @@ class UserTest extends TestCase
         ]);
 
         $this->assertFalse($duplicateUser->save());
-        $this->assertEquals(['cpf has already been taken!'], $duplicateUser->getErrors());
+        $this->assertEquals('cpf has already been taken!', $duplicateUser->errors('cpf'));
     }
 
     public function test_validation_should_fail_for_missing_fields(): void
     {
-        $invalidUser = new User();
+        /** @var \App\Models\User $invalidUser */
+        $invalidUser = new User(['cpf' => '', 'password' => '']);
+
         $this->assertFalse($invalidUser->save());
-        $this->assertEquals([
-            'cpf cannot be empty!',
-            'password cannot be empty!',
-        ], $invalidUser->getErrors());
+        $this->assertEquals('cpf cannot be empty!', $invalidUser->errors('cpf'));
+        $this->assertEquals('password cannot be empty!', $invalidUser->errors('password'));
     }
 }

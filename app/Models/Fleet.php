@@ -31,13 +31,12 @@ class Fleet extends Model
     public function validates(): void
     {
         Validations::notEmpty('name', $this);
-        Validations::uniqueness('id', $this);
         $this->managerExists();
     }
 
     public function addError(string $attribute, string $message): void
     {
-        $this->errors[] = "{$attribute} {$message}";
+        $this->errors[$attribute] = "{$attribute} {$message}";
     }
 
     /**

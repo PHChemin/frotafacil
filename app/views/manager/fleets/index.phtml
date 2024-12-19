@@ -1,6 +1,21 @@
-<h2>ID User: <?= $fleets[0]->manager->user->id ?> Nome: <?= $fleets[0]->manager->user->name ?></h2>
-<?php foreach ($fleets as $fleet) : ?>
-    <p>Id: <?= $fleet->id ?></p>
-    <p>Nome: <?= $fleet->name ?></p>
-    <p>Manager ID: <?= $fleet->manager->id ?></p>
-<?php endforeach; ?>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Frotas</h1>
+        <a href="<?= route('fleets.new') ?>"><i class="bi bi-plus-square-fill text-success fs-2"></i></a>
+    </div>
+    <div class="row">
+        <?php foreach ($fleets as $fleet) : ?>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 g-4 mb-2">
+                <div class="card">
+                    <img src="/assets/images/defaults/frota-card.png" class="card-img-top" alt="card-image">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $fleet->name ?></h5>
+                        <div class="text-end">
+                            <a href="<?= route('fleets.show', ['id' => $fleet->id]) ?>" class="btn btn-sm btn-secondary-custom custom-hover w-100">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

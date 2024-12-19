@@ -8,9 +8,5 @@ use Lib\Authentication\Auth;
 
 class ManagersController extends Controller
 {
-    public function index(Request $request): void
-    {
-        $title = 'Página Inicial Gestores';
-        $this->render('manager/index', compact('title'), 'application');
-    }
+    // Vazio por enquanto!
 }

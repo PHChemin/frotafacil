@@ -19,13 +19,16 @@
             <nav class=" d-flex flex-column justify-content-between ms-3 me-3 h-100">
                 <div class="nav-items">
                     <img class="img-fluid w-75" src="/assets/images/defaults/logo.png" alt="">
-                    <h2 class="mt-2 mb-3 text-secondary-custom"><?php echo $this->current_user->isManager() ? 'Gestor' : 'Motorista'; ?></h2>
-                    <a class="link-custom custom-hover" href="">Frotas</a>
+                    <h2 class="mt-2 mb-3 text-secondary-custom">
+                        <?php echo $this->current_user->isManager() ? 'Gestor' : 'Motorista'; ?>
+                        <?php echo ' - ' . $this->current_user->name ?>
+                    </h2>
+                    <a class="link-custom custom-hover" href="<?= route('fleets.index') ?>">Frotas</a>
                     <a class="link-custom custom-hover" href="">Dashboard</a>
                     <a class="link-custom custom-hover" href="">Perfil</a>
                 </div>
                 <form action="/logout" method="GET" class="nav-items mb-4">
-                    <button type="submit" class="btn btn-secondary-custom custom-hover w-100">Sair</button>
+                    <button type="submit" class="btn btn-danger-custom w-100">Sair</button>
                 </form>
             </nav>
             
@@ -33,7 +36,6 @@
         <section class="col-8 col-md-9 offset-md-3 offset-4">
             <div class="mt-2 ms-2">
                 <?php require '_flash_message.phtml'; ?>
-                <h1><?php echo $title ?></h1>
                 <?php require $view ?>
             </div>
             

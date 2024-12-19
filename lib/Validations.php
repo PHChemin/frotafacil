@@ -8,7 +8,8 @@ class Validations
 {
     public static function notEmpty($attribute, $obj)
     {
-        if ($obj->$attribute === null || $obj->$attribute === '') {
+        $value = trim($obj->$attribute);
+        if ($obj->$attribute === null || $value === '') {
             $obj->addError($attribute, 'cannot be empty!');
             return false;
         }
