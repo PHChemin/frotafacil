@@ -58,12 +58,13 @@ class FleetsController extends Controller
         $id = $request->getParam('id');
         $params = $request->getParam('fleet');
 
+        /** @var \App\Models\Fleet $fleet */
         $fleet = $this->current_user->manager()->fleets()->findById($id);
         $fleet->name = $params['name'];
 
-        if($fleet->save()) {
+        if ($fleet->save()) {
             FlashMessage::success('Frota editada com sucesso!');
-            $this->redirectTo($fleet->id);
+            $this->redirectTo('/manager/fleets/' . $fleet->id);
         } else {
             FlashMessage::danger('Existem dados incorretos! Por favor verifique!');
             $this->render('manager/fleets/edit', compact('fleet'), 'application');

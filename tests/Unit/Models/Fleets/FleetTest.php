@@ -108,7 +108,7 @@ class FleetTest extends TestCase
         $this->assertFalse($fleet->save());
         $this->assertFalse($fleet->hasErrors());
 
-        $this->assertEquals('name cannot be empty!', $fleet->getErrors()[0]);
+        $this->assertEquals('name cannot be empty!', $fleet->errors('name'));
     }
 
     // Manager inexistente
@@ -118,24 +118,12 @@ class FleetTest extends TestCase
         $fleet->save();
 
         $this->assertFalse($fleet->save());
-        $this->assertEquals('manager_id does not exist!', $fleet->getErrors()[0]);
+        $this->assertEquals('manager_id does not exist!', $fleet->errors('manager_id'));
     }
 
-    // Não deixar colocar um id inválido (Já usado)
-    // Caso id = null, o banco completará com um id correto
-    // Caso id já usado o banco não cria
-    // Se você criar e salvar, depois tentar alterar o id para um que já exista o banco não deixa
-    public function test_should_not_create_fleet_if_id_is_duplicated(): void
-    {
-        /** @var \App\Models\Fleet $fleet */
-        $fleet = $this->user->manager()->fleets()->new(['name' => 'Fleet 2']);
-        $fleet->id = 1;
-        $fleet->save();
-
-        $this->assertFalse($fleet->save());
-        $this->assertCount(1, Fleet::all());
-        $this->assertEquals('id has already been taken!', $fleet->getErrors()[0]);
-    }
+    // Removido o teste do ID duplicado
+    // Como o usuário (produção) não possui acesso ao ID e o banco faz o controle do id como chave primária
+    // Acredito ser descenecessário que seja validado
 
     public function test_set_id(): void
     {

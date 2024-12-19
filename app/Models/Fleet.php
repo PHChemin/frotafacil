@@ -31,11 +31,6 @@ class Fleet extends Model
     public function validates(): void
     {
         Validations::notEmpty('name', $this);
-        // Verifica se o 'id' é único, mas ignora a verificação se for o próprio registro
-        if ($this->newRecord()) {
-            Validations::uniqueness('id', $this);
-        }
-
         $this->managerExists();
     }
 

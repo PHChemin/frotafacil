@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
         // Retrieve
         Route::get('/manager/fleets', [FleetsController::class, 'index'])->name('fleets.index');
         Route::get('/manager/fleets/{id}', [FleetsController::class, 'show'])->name('fleets.show');
-        
+
         // Update
         Route::get('/manager/fleets/{id}/edit', [FleetsController::class, 'edit'])->name('fleets.edit');
         Route::put('/manager/fleets/{id}', [FleetsController::class, 'update'])->name('fleets.update');
