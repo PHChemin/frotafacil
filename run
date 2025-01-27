@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 set -o errexit
 set -o pipefail
@@ -43,6 +43,15 @@ function php:console {
 function test {
    TEST_PATH="${@:-tests}"
    docker compose run --rm php ./vendor/bin/phpunit --color ${TEST_PATH}
+}
+
+function codecept {
+   docker compose run --rm php_test ./vendor/bin/codecept ${@}
+}
+
+function test:browser {
+   TEST_PATH="${@:-tests/Acceptance}"
+   docker compose run --rm php_test ./vendor/bin/codecept run acceptance ${TEST_PATH}
 }
 
 function phpcs {

@@ -32,7 +32,7 @@ class DriversControllerTest extends ControllerTestCase
 
     public function test_index(): void
     {
-        $response = $this->get('index', 'App\Controllers\DriversController');
+        $response = $this->get(action: 'index', controllerName: 'App\Controllers\DriversController');
 
         $this->assertStringContainsString('Página Inicial Motoristas', $response);
     }
