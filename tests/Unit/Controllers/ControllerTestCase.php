@@ -26,9 +26,37 @@ abstract class ControllerTestCase extends TestCase
         unset($_SERVER['REQUEST_URI']);
     }
 
-    public function get(string $action, string $controller): string
+    /**
+     * @param array<string, mixed> $params
+     */
+    public function get(string $action, string $controllerName, array $params = []): string
     {
-        $controller = new $controller();
+        return $this->execController($action, $controllerName, $params);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     */
+    public function post(string $action, string $controllerName, array $params = []): string
+    {
+        return $this->execController($action, $controllerName, $params);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     */
+    public function put(string $action, string $controllerName, array $params = []): string
+    {
+        return $this->execController($action, $controllerName, $params);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     */
+    private function execController(string $action, string $controllerName, array $params = []): string
+    {
+        $controller = $this->getControllerInstance($controllerName);
+        $this->request->addParams($params);
 
         ob_start();
         try {
@@ -41,19 +69,28 @@ abstract class ControllerTestCase extends TestCase
         }
     }
 
-    public function post(string $action, string $controller): string
-    {
-        $controller = new $controller();
-        $_SERVER['REQUEST_METHOD'] = 'POST';
 
-        ob_start();
-        try {
-            $controller->$action($this->request);
-            return ob_get_contents();
-        } catch (\Exception $e) {
-            throw $e;
-        } finally {
-            ob_end_clean();
+    private function getControllerInstance(string $controllerName) // @phpstan-ignore-line
+    {
+        $parts = explode("\\", $controllerName);
+        $name = end($parts);
+
+        $controllerClass = '\Overridden' . $name;
+
+        if (!class_exists($controllerClass)) {
+            // This is necessary to override redirectTo, because the redirectTo
+            // method from the Controller call the exit and stop the test execution
+            $code = "
+            class Overridden$name extends $controllerName {
+                protected function redirectTo(string \$location): void {
+                    echo 'Location: ' . \$location;
+                }
+            }
+            ";
+
+            eval($code);
         }
+
+        return new $controllerClass();
     }
 }

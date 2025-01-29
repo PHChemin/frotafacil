@@ -39,7 +39,7 @@ class FleetsControllerTest extends ControllerTestCase
     public function test_list_all_fleets(): void
     {
         $fleets = $this->user->manager()->fleets()->get();
-        $response = $this->get('index', 'App\Controllers\FleetsController');
+        $response = $this->get(action: 'index', controllerName: 'App\Controllers\FleetsController');
 
         $this->assertStringContainsString('Frotas', $response);
 
@@ -54,5 +54,78 @@ class FleetsControllerTest extends ControllerTestCase
         $response = $this->get('new', 'App\Controllers\FleetsController');
 
         $this->assertStringContainsString('Nova frota', $response);
+    }
+
+    public function test_successfully_create_fleet(): void
+    {
+        $params = ['fleet'  => ['name' => 'Frota teste']];
+
+        $response = $this->post(
+            action: 'create',
+            controllerName: 'App\Controllers\FleetsController',
+            params: $params
+        );
+
+        $this->assertMatchesRegularExpression("/Location: \/manager\/fleets/", $response);
+    }
+
+    public function test_unsuccessfully_create_fleet(): void
+    {
+        $params = ['fleet'  => ['name' => '']];
+
+        $response = $this->post(
+            action: 'create',
+            controllerName: 'App\Controllers\FleetsController',
+            params: $params
+        );
+
+        $this->assertMatchesRegularExpression("/não pode estar vazio!/", $response);
+    }
+
+    public function test_edit_fleet(): void
+    {
+        $fleet = new Fleet(['name' => 'Frota 1', 'manager_id' => $this->user->manager()->id]);
+        $fleet->save();
+
+        $response = $this->get(
+            action: 'edit',
+            controllerName: 'App\Controllers\FleetsController',
+            params: ['id' => $fleet->id]
+        );
+
+        $this->assertMatchesRegularExpression("/Editar {$fleet->name}/", $response);
+
+        $regex = '/<input\s+[^>]*type=[\'"]text[\'"][^>]*name=[\'"]fleet\[name\][\'"][^>]*>/i';
+        $this->assertMatchesRegularExpression($regex, $response);
+    }
+
+    public function test_successfully_update_fleet(): void
+    {
+        $fleet = new Fleet(['name' => 'Frota 1', 'manager_id' => $this->user->manager()->id]);
+        $fleet->save();
+        $params = ['id' => $fleet->id, 'fleet' => ['name' => $fleet->name]];
+
+        $response = $this->put(
+            action: 'update',
+            controllerName: 'App\Controllers\FleetsController',
+            params: $params
+        );
+
+        $this->assertMatchesRegularExpression("/Location: \/manager\/fleets/", $response);
+    }
+
+    public function test_unsuccessfully_update_fleet(): void
+    {
+        $fleet = new Fleet(['name' => 'Frota 1', 'manager_id' => $this->user->manager()->id]);
+        $fleet->save();
+        $params = ['id' => $fleet->id, 'fleet' => ['name' => '']];
+
+        $response = $this->put(
+            action: 'update',
+            controllerName: 'App\Controllers\FleetsController',
+            params: $params
+        );
+
+        $this->assertMatchesRegularExpression("/não pode estar vazio!/", $response);
     }
 }

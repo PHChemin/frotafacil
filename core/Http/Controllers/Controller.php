@@ -35,11 +35,9 @@ class Controller
 
         $view = Constants::rootPath()->join('app/views/' . $view . '.phtml');
 
-        if ($layoutName) {
-            require Constants::rootPath()->join('app/views/layouts/' . $layoutName . '.phtml');
-        } else {
-            require $view;
-        }
+        $layout = $layoutName ?? $this->layout;
+
+        require Constants::rootPath()->join('app/views/layouts/' . $layout . '.phtml');
     }
 
 

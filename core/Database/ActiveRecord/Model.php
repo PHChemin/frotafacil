@@ -12,6 +12,7 @@ use ReflectionMethod;
  * Class Model
  * @package Core\Database\ActiveRecord
  * @property int $id
+ * @property array<string, mixed> $attributes
  */
 abstract class Model
 {
@@ -133,7 +134,7 @@ abstract class Model
         $this->errors[$index] = $value;
     }
 
-    public abstract function validates(): void;
+    public function validates(): void {}
 
     /* ------------------- DATABASE METHODS ------------------- */
     public function save(): bool
@@ -347,6 +348,16 @@ abstract class Model
     {
         $resp = self::where($conditions);
         return !empty($resp);
+    }
+
+    public static function exist(int $id): bool
+    {
+        $pdo = Database::getDatabaseConn();
+        $stmt = $pdo->prepare("SELECT 1 FROM " . static::$table . " WHERE id = :id LIMIT 1");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    
+        return (bool) $stmt->fetchColumn();
     }
 
     /* ------------------- RELATIONSHIPS METHODS ------------------- */
