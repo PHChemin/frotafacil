@@ -72,11 +72,16 @@ abstract class ControllerTestCase extends TestCase
 
     private function getControllerInstance(string $controllerName) // @phpstan-ignore-line
     {
-        if (!class_exists('\OverriddenController')) {
+        $parts = explode("\\", $controllerName);
+        $name = end($parts);
+
+        $controllerClass = '\Overridden' . $name;
+
+        if (!class_exists($controllerClass)) {
             // This is necessary to override redirectTo, because the redirectTo
             // method from the Controller call the exit and stop the test execution
             $code = "
-            class OverriddenController extends $controllerName {
+            class Overridden$name extends $controllerName {
                 protected function redirectTo(string \$location): void {
                     echo 'Location: ' . \$location;
                 }
@@ -86,6 +91,6 @@ abstract class ControllerTestCase extends TestCase
             eval($code);
         }
 
-        return new \OverriddenController(); // @phpstan-ignore-line
+        return new $controllerClass(); // @phpstan-ignore-line
     }
 }

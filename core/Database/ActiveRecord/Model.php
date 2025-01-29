@@ -349,6 +349,16 @@ abstract class Model
         return !empty($resp);
     }
 
+    public static function exist(int $id): bool
+    {
+        $pdo = Database::getDatabaseConn();
+        $stmt = $pdo->prepare("SELECT 1 FROM " . static::$table . " WHERE id = :id LIMIT 1");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    
+        return (bool) $stmt->fetchColumn();
+    }
+
     /* ------------------- RELATIONSHIPS METHODS ------------------- */
 
     public function belongsTo(string $related, string $foreignKey): BelongsTo

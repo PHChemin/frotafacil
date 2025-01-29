@@ -13,7 +13,7 @@ class FleetsController extends Controller
     public function index(Request $request): void
     {
         $fleets = $this->current_user->manager()->fleets()->get();
-        $this->render('manager/fleets/index', compact('fleets'), 'application');
+        $this->render('manager/fleets/index', compact('fleets'));
     }
 
     public function show(Request $request): void
@@ -21,14 +21,14 @@ class FleetsController extends Controller
         $params = $request->getParams();
         $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
 
-        $this->render('manager/fleets/show', compact('fleet'), 'application');
+        $this->render('manager/fleets/show', compact('fleet'));
     }
 
     public function new(): void
     {
         $fleet = $this->current_user->manager()->fleets()->new();
 
-        $this->render('manager/fleets/new', compact('fleet'), 'application');
+        $this->render('manager/fleets/new', compact('fleet'));
     }
 
     public function create(Request $request): void
@@ -41,7 +41,7 @@ class FleetsController extends Controller
             $this->redirectTo(route('fleets.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por favor verifique!');
-            $this->render('manager/fleets/new', compact('fleet'), 'application');
+            $this->render('manager/fleets/new', compact('fleet'));
         }
     }
 
@@ -50,7 +50,7 @@ class FleetsController extends Controller
         $params = $request->getParams();
         $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
 
-        $this->render('manager/fleets/edit', compact('fleet'), 'application');
+        $this->render('manager/fleets/edit', compact('fleet'));
     }
 
     public function update(Request $request): void
@@ -67,7 +67,7 @@ class FleetsController extends Controller
             $this->redirectTo('/manager/fleets/' . $fleet->id);
         } else {
             FlashMessage::danger('Existem dados incorretos! Por favor verifique!');
-            $this->render('manager/fleets/edit', compact('fleet'), 'application');
+            $this->render('manager/fleets/edit', compact('fleet'));
         }
     }
 

@@ -11,6 +11,6 @@ class DriversController extends Controller
     public function index(Request $request): void
     {
         $title = 'Página Inicial Motoristas';
-        $this->render('driver/index', compact('title'), 'application');
+        $this->render('driver/index', compact('title'));
     }
 }

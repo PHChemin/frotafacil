@@ -49,11 +49,8 @@ class Fleet extends Model
 
     private function managerExists(): bool
     {
-        $managers = Manager::all();
-        foreach ($managers as $manager) {
-            if ($manager->id == $this->manager_id) {
-                return true;
-            }
+        if(Manager::exist($this->manager_id)) {
+            return true;
         }
 
         $this->addError('manager_id', 'does not exist!');
