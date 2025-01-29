@@ -91,6 +91,6 @@ abstract class ControllerTestCase extends TestCase
             eval($code);
         }
 
-        return new $controllerClass(); // @phpstan-ignore-line
+        return new $controllerClass();
     }
 }

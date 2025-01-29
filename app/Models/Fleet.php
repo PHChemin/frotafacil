@@ -49,7 +49,7 @@ class Fleet extends Model
 
     private function managerExists(): bool
     {
-        if(Manager::exist($this->manager_id)) {
+        if (Manager::exist($this->manager_id)) {
             return true;
         }
 

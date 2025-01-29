@@ -12,6 +12,7 @@ use ReflectionMethod;
  * Class Model
  * @package Core\Database\ActiveRecord
  * @property int $id
+ * @property array<string, mixed> $attributes
  */
 abstract class Model
 {

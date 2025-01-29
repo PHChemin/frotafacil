@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Acceptance\Authentication;
 
 use App\Models\Manager;

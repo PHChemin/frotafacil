@@ -19,7 +19,7 @@ class FleetsCest extends BaseAcceptanceCest
             'password' => 'password123'
         ]);
         $user->save();
-        
+
         $manager = new Manager([
             'user_id' => $user->id
         ]);
