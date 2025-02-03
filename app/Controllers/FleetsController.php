@@ -19,9 +19,13 @@ class FleetsController extends Controller
     public function show(Request $request): void
     {
         $params = $request->getParams();
-        $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
 
-        $this->render('manager/fleets/show', compact('fleet'));
+        /** @var Fleet $fleet */
+        $fleet = $this->current_user->manager()->fleets()->findById($params['fleet_id']);
+
+        $trucks = $fleet->trucks()->get();
+
+        $this->render('manager/fleets/show', compact('fleet', 'trucks'));
     }
 
     public function new(): void
@@ -48,14 +52,14 @@ class FleetsController extends Controller
     public function edit(Request $request): void
     {
         $params = $request->getParams();
-        $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
+        $fleet = $this->current_user->manager()->fleets()->findById($params['fleet_id']);
 
         $this->render('manager/fleets/edit', compact('fleet'));
     }
 
     public function update(Request $request): void
     {
-        $id = $request->getParam('id');
+        $id = $request->getParam('fleet_id');
         $params = $request->getParam('fleet');
 
         /** @var \App\Models\Fleet $fleet */
@@ -75,7 +79,7 @@ class FleetsController extends Controller
     {
         $params = $request->getParams();
 
-        $fleet = $this->current_user->manager()->fleets()->findById($params['id']);
+        $fleet = $this->current_user->manager()->fleets()->findById($params['fleet_id']);
         $fleet->destroy();
 
         FlashMessage::success('Frota removida com sucesso!');

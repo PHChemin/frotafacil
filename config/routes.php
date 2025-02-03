@@ -5,6 +5,7 @@ use App\Controllers\DriversController;
 use App\Controllers\FleetsController;
 use App\Controllers\HomeController;
 use App\Controllers\ManagersController;
+use App\Controllers\TrucksController;
 use Core\Router\Route;
 
 // Authentication
@@ -21,19 +22,27 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('manager')->group(function () {
         // FLEETS
-        // Create
         Route::get('/manager/fleets/new', [FleetsController::class, 'new'])->name('fleets.new');
         Route::post('/manager/fleets', [FleetsController::class, 'create'])->name('fleets.create');
 
-        // Retrieve
         Route::get('/manager/fleets', [FleetsController::class, 'index'])->name('fleets.index');
-        Route::get('/manager/fleets/{id}', [FleetsController::class, 'show'])->name('fleets.show');
+        Route::get('/manager/fleets/{fleet_id}', [FleetsController::class, 'show'])->name('fleets.show');
 
-        // Update
-        Route::get('/manager/fleets/{id}/edit', [FleetsController::class, 'edit'])->name('fleets.edit');
-        Route::put('/manager/fleets/{id}', [FleetsController::class, 'update'])->name('fleets.update');
+        Route::get('/manager/fleets/{fleet_id}/edit', [FleetsController::class, 'edit'])->name('fleets.edit');
+        Route::put('/manager/fleets/{fleet_id}', [FleetsController::class, 'update'])->name('fleets.update');
 
-        // Delete
-        Route::delete('/manager/fleets/{id}', [FleetsController::class, 'destroy'])->name('fleets.destroy');
+        Route::delete('/manager/fleets/{fleet_id}', [FleetsController::class, 'destroy'])->name('fleets.destroy');
+
+
+        // TRUCKS
+        Route::get('/manager/fleets/{fleet_id}/trucks/new', [TrucksController::class, 'new'])->name('trucks.new');
+        Route::post('/manager/fleets/{fleet_id}/trucks', [TrucksController::class, 'create'])->name('trucks.create');
+
+        Route::get('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'show'])->name('trucks.show');
+
+        Route::get('/manager/fleets/{fleet_id}/trucks/{truck_id}/edit', [TrucksController::class, 'edit'])->name('trucks.edit');
+        Route::put('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'update'])->name('trucks.update');
+
+        Route::delete('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'destroy'])->name('trucks.destroy');
     });
 });
