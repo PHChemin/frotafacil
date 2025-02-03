@@ -2,9 +2,8 @@
 
 use App\Controllers\AuthenticationsController;
 use App\Controllers\DriversController;
+use App\Controllers\DriversProfileController;
 use App\Controllers\FleetsController;
-use App\Controllers\HomeController;
-use App\Controllers\ManagersController;
 use App\Controllers\TrucksController;
 use Core\Router\Route;
 
@@ -18,6 +17,11 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('driver')->group(function () {
         Route::get('/driver', [DriversController::class, 'index'])->name('driver.index');
+
+        // PROFILE
+        Route::get('/driver/profile', [DriversProfileController::class, 'show'])->name('driver.profile.show');
+        Route::put('/driver/profile/{driver_id}', [DriversProfileController::class, 'update'])->name('driver.profile.update');
+        Route::post('/driver/profile/avatar', [DriversProfileController::class, 'updateAvatar'])->name('driver.profile.avatar');
     });
 
     Route::middleware('manager')->group(function () {
