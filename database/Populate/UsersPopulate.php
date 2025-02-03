@@ -48,7 +48,7 @@ class UsersPopulate
         $driverUser = new User($driverData);
         $driverUser->save();
 
-        $driver = new Driver(['user_id' => $driverUser->id, 'license_category' => 'E', 'gender' => 'M', 'commission_percent' => 14]);
+        $driver = new Driver(['user_id' => $driverUser->id]);
         $driver->save();
 
         echo "Users populated successfully.\n";

@@ -32,9 +32,10 @@ CREATE TABLE managers (
 CREATE TABLE drivers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    license_category VARCHAR(9),
+    license_category VARCHAR(15),
     gender CHAR(1),
     commission_percent DECIMAL(5,2),
+    avatar_name VARCHAR(65),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
