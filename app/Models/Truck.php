@@ -75,7 +75,7 @@ class Truck extends Model
         return $this->errors;
     }
 
-    public function translateError(string $error): string
+    public function translateError(string | null $error): string
     {
         $translations = [
             'has already been taken!' => 'Esta placa já está em uso!',

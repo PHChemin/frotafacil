@@ -68,7 +68,7 @@ class TrucksControllerTest extends ControllerTestCase
 
     public function test_list_all_trucks(): void
     {
-        $trucks = $this->fleet->trucks();
+        $trucks = $this->fleet->trucks()->get();
 
         $response = $this->get(
             action: 'show',
