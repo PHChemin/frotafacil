@@ -90,7 +90,7 @@ class FleetsControllerTest extends ControllerTestCase
         $response = $this->get(
             action: 'edit',
             controllerName: 'App\Controllers\FleetsController',
-            params: ['id' => $fleet->id]
+            params: ['fleet_id' => $fleet->id]
         );
 
         $this->assertMatchesRegularExpression("/Editar {$fleet->name}/", $response);
@@ -103,7 +103,7 @@ class FleetsControllerTest extends ControllerTestCase
     {
         $fleet = new Fleet(['name' => 'Frota 1', 'manager_id' => $this->user->manager()->id]);
         $fleet->save();
-        $params = ['id' => $fleet->id, 'fleet' => ['name' => $fleet->name]];
+        $params = ['fleet_id' => $fleet->id, 'fleet' => ['name' => $fleet->name]];
 
         $response = $this->put(
             action: 'update',
@@ -118,7 +118,7 @@ class FleetsControllerTest extends ControllerTestCase
     {
         $fleet = new Fleet(['name' => 'Frota 1', 'manager_id' => $this->user->manager()->id]);
         $fleet->save();
-        $params = ['id' => $fleet->id, 'fleet' => ['name' => '']];
+        $params = ['fleet_id' => $fleet->id, 'fleet' => ['name' => '']];
 
         $response = $this->put(
             action: 'update',

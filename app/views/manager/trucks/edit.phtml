@@ -1,0 +1,26 @@
+<h1>Editar <?php echo "{$truck->truckBrand()->get()->name} {$truck->model}"; ?></h1>
+<form 
+action="<?= route('trucks.update', ['fleet_id' => $truck->fleet()->get()->id, 'truck_id' => $truck->id])  ?>" 
+method="POST" 
+class="<?= $truck->hasErrors() ? '' : 'was-validated' ?>" 
+novalidate>
+<input type="hidden" name="_method" value="PUT">
+    <div class="mb-3">
+
+        <label for="truck_model" class="form-label mt-3">Modelo:</label>
+        <input type="text" value="<?= $truck->model ?>" name="truck[model]" class="form-control" id="truck_model" required>
+        <div class="invalid-feedback"><?= $truck->errors('model') ? 'O campo modelo não pode estar vazio!' : '' ?></div>
+
+        <label for="truck_color" class="form-label mt-3">Cor:</label>
+        <input type="text" value="<?= $truck->color ?>" name="truck[color]" class="form-control" id="truck_color" required>
+        <div class="invalid-feedback"><?= $truck->errors('color') ? 'O campo cor não pode estar vazio!' : '' ?></div>
+
+        <label for="truck_plate" class="form-label mt-3">Placa:</label>
+        <input type="text" value="<?= $truck->plate ?>" name="truck[plate]" class="form-control" id="truck_plate" required>
+        <div class="invalid-feedback"><?= $truck->errors('plate') ? 'O campo placa não pode estar vazio!' : '' ?></div>        
+
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </div>
+</form>

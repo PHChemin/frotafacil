@@ -49,8 +49,7 @@ CREATE TABLE fleets (
 -- Tabela de marcas de caminhões
 CREATE TABLE truck_brands (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
-    logo_path VARCHAR(512) NOT NULL
+    name VARCHAR(45) NOT NULL
 );
 
 -- Tabela de caminhões

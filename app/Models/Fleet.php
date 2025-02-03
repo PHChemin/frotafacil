@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Core\Database\ActiveRecord\BelongsTo;
 use Core\Database\ActiveRecord\Model;
+use Core\Database\ActiveRecord\HasMany;
 use Lib\Validations;
 
 /**
@@ -26,6 +27,11 @@ class Fleet extends Model
     public function manager(): BelongsTo
     {
         return $this->belongsTo(Manager::class, 'manager_id');
+    }
+
+    public function trucks(): HasMany
+    {
+        return $this->hasMany(Truck::class, 'fleet_id');
     }
 
     public function validates(): void

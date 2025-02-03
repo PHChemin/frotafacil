@@ -2,13 +2,32 @@
     <div class="d-flex justify-content-between align-items-center">
         <h1><?= $fleet->name ?></h1>
         <div class="d-flex align-items-center">
-            <a href="<?= route('fleets.edit', ['id' => $fleet->id]) ?>" ><i class="bi bi-pencil-square text-secondary-custom fs-2 me-3"></i></a>
+            <a href="<?= route('fleets.edit', ['fleet_id' => $fleet->id]) ?>" ><i class="bi bi-pencil-square text-secondary-custom fs-2 me-3"></i></a>
             <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="bi bi-trash3 text-danger-custom fs-2"></i>
             </button>
         </div>
     </div>
-    <p>Seus caminhões...</p>
+    <div class="text-end mt-2">
+      <a class="btn btn-success" href="<?= route('trucks.new', ['fleet_id' => $fleet->id]) ?>">Adicionar Caminhão</a>
+    </div>
+    
+    <div class="row">
+      <?php foreach ($trucks as $truck) : ?>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 g-4 mb-2">
+            <div class="card pt-3">
+                <img src="<?= $truck->truckBrand()->get()->logo()->path() ?>" class="card-img-top w-50 mx-auto d-block" alt="card-image">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo "{$truck->truckBrand()->get()->name} {$truck->model}"; ?></h5>
+                    <div class="text-end">
+                        <a href="<?= route('trucks.show', ['fleet_id' => $fleet->id, 'truck_id' => $truck->id]) ?>" class="btn btn-sm btn-secondary-custom custom-hover w-100">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+
+    </div>
 </div>
 
 <!-- Modal de Confirmação da Exclusão -->
@@ -25,7 +44,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <form action="<?= route('fleets.destroy', ['id' => $fleet->id]) ?>" method="POST" id="deleteFleetForm">
+        <form action="<?= route('fleets.destroy', ['fleet_id' => $fleet->id,]) ?>" method="POST" id="deleteFleetForm">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Deletar</button>
         </form>
