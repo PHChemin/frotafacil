@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Fleet;
 use App\Models\TruckBrand;
 use Core\Http\Controllers\Controller;
 use Core\Http\Request;
@@ -41,7 +42,7 @@ class TrucksController extends Controller
         /** @var Fleet $fleet */
         $fleet = $this->current_user->manager()->fleets()->findById($params['fleet_id']);
 
-        $truck = $fleet->trucks()->new($params['truck']);        
+        $truck = $fleet->trucks()->new($params['truck']);
 
         if ($truck->save()) {
             FlashMessage::success('Caminhão registrado com sucesso!');

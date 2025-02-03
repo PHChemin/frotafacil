@@ -22,7 +22,7 @@ class TruckTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         // Criando o usuário, manager e fleet
         $this->user = new User([
             'cpf' => '12345678901',
@@ -38,7 +38,7 @@ class TruckTest extends TestCase
         $this->fleet = new Fleet(['name' => 'Fleet of manager 1', 'manager_id' => $this->user->manager()->id]);
         $this->fleet->save();
 
-        
+
         $this->user2 = new User([
             'cpf' => '98765432100',
             'name' => 'Driver Test',

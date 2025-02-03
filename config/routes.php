@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/fleets/{fleet_id}/trucks/{truck_id}/edit', [TrucksController::class, 'edit'])->name('trucks.edit');
         Route::put('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'update'])->name('trucks.update');
 
-        Route::delete('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'destroy'])->name('trucks.destroy');
+        Route::delete('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'destroy'])
+            ->name('trucks.destroy');
     });
 });

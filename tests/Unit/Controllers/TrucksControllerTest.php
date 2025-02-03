@@ -49,7 +49,7 @@ class TrucksControllerTest extends ControllerTestCase
 
         $this->driver = new Driver(['user_id' => $this->user2->id]);
         $this->driver->save();
-        
+
         $this->fleet = new Fleet(['name' => 'Fleet of manager 1', 'manager_id' => $this->user->manager()->id]);
         $this->fleet->save();
 
@@ -70,7 +70,11 @@ class TrucksControllerTest extends ControllerTestCase
     {
         $trucks = $this->fleet->trucks();
 
-        $response = $this->get(action: 'show', controllerName: 'App\Controllers\FleetsController', params: ['fleet_id' => $this->fleet->id]);
+        $response = $this->get(
+            action: 'show',
+            controllerName: 'App\Controllers\FleetsController',
+            params: ['fleet_id' => $this->fleet->id]
+        );
 
         $this->assertStringContainsString($this->fleet->name, $response);
 
@@ -82,7 +86,11 @@ class TrucksControllerTest extends ControllerTestCase
 
     public function test_new_truck(): void
     {
-        $response = $this->get(action: 'new', controllerName: 'App\Controllers\TrucksController', params: ['fleet_id' => $this->fleet->id]);
+        $response = $this->get(
+            action: 'new',
+            controllerName: 'App\Controllers\TrucksController',
+            params: ['fleet_id' => $this->fleet->id]
+        );
 
         $this->assertStringContainsString('Novo caminhão', $response);
     }
