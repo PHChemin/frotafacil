@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Services\DriverAvatar;
 use Core\Database\ActiveRecord\BelongsTo;
 use Core\Database\ActiveRecord\Model;
+use Lib\Validations;
 
 /**
  * @property int $id
@@ -23,7 +25,8 @@ class Driver extends Model
         'user_id',
         'license_category',
         'gender',
-        'commission_percent'
+        'commission_percent',
+        'avatar_name'
     ];
 
     public function user(): BelongsTo
@@ -50,7 +53,7 @@ class Driver extends Model
 
     public function addError(string $attribute, string $message): void
     {
-        $this->errors[] = "{$attribute} {$message}";
+        $this->errors[$attribute] = "{$attribute} {$message}";
     }
 
     /**
@@ -59,5 +62,10 @@ class Driver extends Model
     public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    public function avatar(): DriverAvatar
+    {
+        return new DriverAvatar($this);
     }
 }

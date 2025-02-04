@@ -23,9 +23,14 @@
                         <?php echo $this->current_user->isManager() ? 'Gestor' : 'Motorista'; ?>
                         <?php echo ' - ' . $this->current_user->name ?>
                     </h2>
-                    <a class="link-custom custom-hover" href="<?= route('fleets.index') ?>">Frotas</a>
-                    <a class="link-custom custom-hover" href="">Dashboard</a>
-                    <a class="link-custom custom-hover" href="">Perfil</a>
+
+                    <?php if ($this->current_user->isManager()): ?>
+                        <a class="link-custom custom-hover" href="<?= route('fleets.index') ?>">Frotas</a>
+                        <a class="link-custom custom-hover" href="">Dashboard</a>
+                    <?php else: ?>
+                        <a class="link-custom custom-hover" href="<?= route('driver.index') ?>">Viagem</a>
+                        <a class="link-custom custom-hover" href="<?= route('driver.profile.show') ?>">Perfil</a>
+                    <?php endif; ?>
                 </div>
                 <form action="/logout" method="GET" class="nav-items mb-4">
                     <button type="submit" class="btn btn-danger-custom w-100">Sair</button>
