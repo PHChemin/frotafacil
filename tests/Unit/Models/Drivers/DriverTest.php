@@ -95,7 +95,7 @@ class DriverTest extends TestCase
 
         $driver->validates();
 
-        $this->assertFalse($driver->hasErrors());
+        $this->assertTrue($driver->hasErrors());
         $this->assertTrue(in_array('user_id Usuário já associado a um gestor!', $driver->getErrors()));
     }
 
@@ -105,7 +105,7 @@ class DriverTest extends TestCase
 
         $driver->validates();
 
-        $this->assertFalse($driver->hasErrors());
+        $this->assertTrue($driver->hasErrors());
         $this->assertTrue(in_array('user_id O user_id não pode ser nulo.', $driver->getErrors()));
     }
 

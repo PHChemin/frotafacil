@@ -1,5 +1,5 @@
 <h1>Editar <?= $fleet->name ?></h1>
-<form action="<?= route('fleets.update', ['fleet_id' => $fleet->id]) ?> "method="POST" class="<?= $fleet->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+<form action="<?= route('fleets.update', ['fleet_id' => $fleet->id]) ?> "method="POST" class="<?= $fleet->hasErrors() ? 'was-validated' : '' ?>" novalidate>
     <input type="hidden" name="_method" value="PUT">
     <div class="mb-3">
         <label for="fleet_name" class="form-label">Nome:</label>

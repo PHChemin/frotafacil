@@ -122,7 +122,7 @@ class TruckTest extends TestCase
 
         $this->assertFalse($truck->isValid());
         $this->assertFalse($truck->save());
-        $this->assertFalse($truck->hasErrors());
+        $this->assertTrue($truck->hasErrors());
 
         $this->assertEquals('plate cannot be empty!', $truck->errors('plate'));
     }
