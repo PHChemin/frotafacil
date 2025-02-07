@@ -10,7 +10,9 @@ class DriversProfileController extends Controller
 {
     public function show(): void
     {
-        $this->render('driver/profile/show');
+        $driver = $this->current_user->driver();
+
+        $this->render('driver/profile/show', compact('driver'));
     }
 
     public function update(Request $request): void
@@ -33,8 +35,15 @@ class DriversProfileController extends Controller
     public function updateAvatar(): void
     {
         $image = $_FILES['user_avatar'];
+        $driver = $this->current_user->driver();
 
-        $this->current_user->driver()->avatar()->update($image);
-        $this->redirectTo(route('driver.profile.show'));
+        if ($driver->avatar()->update($image)) {
+            FlashMessage::success('Avatar atualizado com sucesso!');
+            $this->redirectTo(route('driver.profile.show'));
+        } else {
+            FlashMessage::danger('Erro ao atualizar o avatar! Verifique os dados.');
+            $this->render('driver/profile/show', compact('driver'));
+            return;
+        }
     }
 }

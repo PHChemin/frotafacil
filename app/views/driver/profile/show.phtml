@@ -1,14 +1,14 @@
 <div class="container">
     <h1>Meu Perfil</h1>
-
+    
     <div class="d-flex">
         <div>
             <div>
                 <div class="avatar-container">
-                    <img id="image_preview" class="avatar" src="<?= $this->current_user->driver()->avatar()->path() ?>" alt="avatar">
+                    <img id="image_preview" class="avatar" src="<?= $driver->avatar()->path() ?>" alt="avatar">
                 </div>
                 
-                <form action="<?= route('driver.profile.avatar') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= route('driver.profile.avatar') ?>" method="POST" enctype="multipart/form-data" class="<?= $driver->hasErrors() ? '' : 'was-validated' ?>" novalidate>
                     <input id="image_preview_input" type="file" name="user_avatar" id="user_avatar">
                     <div class="d-grid mt-2">
                         <button id="image_preview_submit" type="submit" class="btn btn-fill btn-success">Atualizar</button>
@@ -16,13 +16,26 @@
                 </form>
             </div>
 
+            <?php 
+                if($driver->hasErrors()) { 
+                    $errorMessage = preg_replace('/^avatar_name\s*/', '', $driver->errors('avatar_name')); 
+            ?>
+                <div class="alert alert-danger text-center w-75" role="alert">
+                    <?php echo $errorMessage; ?>
+                </div>
+            <?php 
+                }  
+            ?>
+
+            
+
             <h2><?= $this->current_user->name ?></h2>
             <p>EMAIL: <?= $this->current_user->email ?></p>
             <p>CPF: <?= $this->current_user->cpf ?></p>
         </div>
 
         <div class="ms-5">
-            <form action="<?= route('driver.profile.update', ['driver_id' => $this->current_user->driver()->id]) ?>" method="POST" class="<?= $this->current_user->driver()->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+            <form action="<?= route('driver.profile.update', ['driver_id' => $driver->id]) ?>" method="POST" class="<?= $driver->hasErrors() ? 'was-validated' : '' ?>" novalidate>
                 <input type="hidden" name="_method" value="PUT">
                 <div class="mb-3">
                     <label class="form-label mt-3">Gênero:</label>
@@ -35,7 +48,7 @@
                                 id="gender_m" 
                                 value="M" 
                                 <?php
-                                    $gender = $this->current_user->driver()->gender;
+                                    $gender = $driver->gender;
                                     echo (!empty($gender) && $gender === 'M') ? 'checked' : '';
                                 ?>  
                                 required
@@ -50,24 +63,24 @@
                                 id="gender_f" 
                                 value="F" 
                                 <?php
-                                    $gender = $this->current_user->driver()->gender;
+                                    $gender = $driver->gender;
                                     echo (!empty($gender) && $gender === 'F') ? 'checked' : '';
                                 ?> 
                                 required
                             >
                             <label class="form-check-label" for="gender_f">Feminino</label>
                         </div>
-                        <div class="invalid-feedback"><?= $this->current_user->driver()->errors('gender') ? 'O campo gênero não pode estar vazio!' : '' ?></div>
+                        <div class="invalid-feedback"><?= $driver->errors('gender') ? 'O campo gênero não pode estar vazio!' : '' ?></div>
                     </div>
 
                     <label class="form-label mt-3">Categoria da CNH:</label>
                     <div>
                         <?php 
                             $categories = ['A', 'B', 'C', 'D', 'E'];
-                            $license_category = $this->current_user->driver()->license_category;
+                            $license_category = $driver->license_category;
 
                             $selectedCategories = (!empty($license_category)) 
-                                                ? explode(',', $this->current_user->driver()->license_category) 
+                                                ? explode(',', $driver->license_category) 
                                                 : [];
                         ?>
 
@@ -78,7 +91,7 @@
                                 <label class="form-check-label" for="cat_<?= $category ?>">Categoria <?= $category ?></label>
                             </div>
                         <?php endforeach; ?>
-                        <div class="invalid-feedback"><?= $this->current_user->driver()->errors('license_category') ? 'O campo categoria da cnh não pode estar vazio!' : '' ?></div>
+                        <div class="invalid-feedback"><?= $driver->errors('license_category') ? 'O campo categoria da cnh não pode estar vazio!' : '' ?></div>
                     </div>
                 </div>
 
