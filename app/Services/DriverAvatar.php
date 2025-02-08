@@ -12,6 +12,7 @@ class DriverAvatar
 
     public function __construct(
         private Model $model,
+        /** @var array<string, string|array<string>> $validations */
         private array $validations = []
     ) {
     }
