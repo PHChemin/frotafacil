@@ -9,7 +9,8 @@
                 </div>
                 
                 <form action="<?= route('driver.profile.avatar') ?>" method="POST" enctype="multipart/form-data" class="<?= $driver->hasErrors() ? '' : 'was-validated' ?>" novalidate>
-                    <input id="image_preview_input" type="file" name="user_avatar" id="user_avatar" accept=".jpg, .jpeg, .png">
+                    <input id="image_preview_input" type="file" name="user_avatar"  accept=".jpg, .jpeg, .png">
+                    <button type="button" id="open_file_input" class="btn-secondary-custom mt-3">Escolher Avatar</button>
                     <div class="d-grid mt-2">
                         <button id="image_preview_submit" type="submit" class="btn btn-fill btn-success">Atualizar</button>
                     </div>
