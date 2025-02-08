@@ -9,19 +9,18 @@ class DriverAvatar
 {
     /** @var array<string, mixed> $image */
     private array $image;
-    private array $validationParams;
 
     public function __construct(
         private Model $model,
-        $validationParams
+        private array $validations = []
     ) {
-        $this->validationParams = $validationParams;
     }
 
     public function path(): string
     {
         if ($this->model->avatar_name) {
-            $hash = md5_file($this->getAbsuleSavedFilePath());
+            $hash = md5_file($this->getAbsoluteSavedFilePath());
+
             return $this->baseDir() . $this->model->avatar_name . "?" . $hash;
         }
 
@@ -35,22 +34,32 @@ class DriverAvatar
     {
         $this->image = $image;
 
-        if ($this->validationParams['extension']) {
-            $this->extensionValidation();
-        }
-
-        if ($this->validationParams['size']) {
-            $this->sizeValidation();
-        }
-
-        if ($this->model->hasErrors()) {
+        if (!$this->isValidImage()) {
             return false;
         }
 
-        if (!empty($this->getTmpFilePath())) {
-            $this->removeOldImage();
-            $this->model->update(['avatar_name' => $this->getFileName()]);
-            move_uploaded_file($this->getTmpFilePath(), $this->getAbsoluteFilePath());
+        return $this->updateFile();
+    }
+
+    protected function updateFile(): bool
+    {
+        if (empty($this->getTmpFilePath())) {
+            return false;
+        }
+
+        $this->removeOldImage();
+        $this->model->update(['avatar_name' => $this->getFileName()]);
+
+        $resp = move_uploaded_file(
+            $this->getTmpFilePath(),
+            $this->getAbsoluteDestinationPath()
+        );
+
+        if (!$resp) {
+            $error = error_get_last();
+            throw new \RuntimeException(
+                'Failed to move uploaded file: ' . ($error['message'] ?? 'Unknown error')
+            );
         }
 
         return true;
@@ -64,8 +73,7 @@ class DriverAvatar
     private function removeOldImage(): void
     {
         if ($this->model->avatar_name) {
-            $path = Constants::rootPath()->join('public' . $this->baseDir())->join($this->model->avatar_name);
-            unlink($path);
+            unlink($this->getAbsoluteSavedFilePath());
         }
     }
 
@@ -76,17 +84,17 @@ class DriverAvatar
         return 'avatar.' . $file_extension;
     }
 
-    private function getAbsoluteFilePath(): string
+    private function getAbsoluteDestinationPath(): string
     {
         return $this->storeDir() . $this->getFileName();
     }
 
-    private function getAbsuleSavedFilePath(): string
+    private function getAbsoluteSavedFilePath(): string
     {
         return Constants::rootPath()->join('public' . $this->baseDir())->join($this->model->avatar_name);
     }
 
-    private function baseDir(): string
+    public function baseDir(): string
     {
         return "/assets/uploads/{$this->model::table()}/{$this->model->id}/";
     }
@@ -101,29 +109,33 @@ class DriverAvatar
         return $path;
     }
 
-    private function extensionValidation(): bool
+    private function isValidImage(): bool
     {
-        $supportedExtensions = $this->validationParams['extension'];
+        if (isset($this->validations['extension'])) {
+            $this->validateImageExtension();
+        }
 
+        if (isset($this->validations['size'])) {
+            $this->validateImageSize();
+        }
+
+        return $this->model->errors('avatar_name') === null;
+    }
+
+    private function validateImageExtension(): void
+    {
         $file_name_splitted  = explode('.', $this->image['name']);
         $file_extension = end($file_name_splitted);
 
-        if (!in_array($file_extension, $supportedExtensions)) {
+        if (!in_array($file_extension, $this->validations['extension'])) {
             $this->model->addError('avatar_name', 'Formato de imagem não suportado!');
-            return false;
         }
-        return true;
     }
 
-    private function sizeValidation(): bool
+    private function validateImageSize(): void
     {
-        $maxSize = $this->validationParams['size']; // 2MB
-
-        if ($this->image['size'] > $maxSize) {
+        if ($this->image['size'] > $this->validations['size']) {
             $this->model->addError('avatar_name', 'O arquivo deve ter no máximo 2MB!');
-            return false;
         }
-
-        return true;
     }
 }

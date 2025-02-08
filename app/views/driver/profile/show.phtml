@@ -9,7 +9,7 @@
                 </div>
                 
                 <form action="<?= route('driver.profile.avatar') ?>" method="POST" enctype="multipart/form-data" class="<?= $driver->hasErrors() ? '' : 'was-validated' ?>" novalidate>
-                    <input id="image_preview_input" type="file" name="user_avatar" id="user_avatar">
+                    <input id="image_preview_input" type="file" name="user_avatar" id="user_avatar" accept=".jpg, .jpeg, .png">
                     <div class="d-grid mt-2">
                         <button id="image_preview_submit" type="submit" class="btn btn-fill btn-success">Atualizar</button>
                     </div>
@@ -26,8 +26,6 @@
             <?php 
                 }  
             ?>
-
-            
 
             <h2><?= $this->current_user->name ?></h2>
             <p>EMAIL: <?= $this->current_user->email ?></p>

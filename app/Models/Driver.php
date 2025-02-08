@@ -66,6 +66,6 @@ class Driver extends Model
 
     public function avatar(): DriverAvatar
     {
-        return new DriverAvatar($this, ['extension' => ['png', 'jpg'], 'size' => 2 * 1024 * 1024]);
+        return new DriverAvatar($this, ['extension' => ['png', 'jpg', 'jpeg'], 'size' => 2 * 1024 * 1024]);
     }
 }
