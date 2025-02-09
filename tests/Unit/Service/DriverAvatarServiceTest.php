@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Models\Drivers;
+namespace Tests\Unit\Service;
 
 use App\Models\Driver;
 use App\Models\User;
@@ -56,7 +56,6 @@ class DriverAvatarServiceTest extends TestCase
     /**
      * ============================== START OF TESTING ===================================
      */
-
     public function testUpload(): void
     {
         // Create a mock using PHPUnit's MockBuilder
