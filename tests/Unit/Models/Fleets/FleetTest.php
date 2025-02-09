@@ -106,7 +106,7 @@ class FleetTest extends TestCase
 
         $this->assertFalse($fleet->isValid());
         $this->assertFalse($fleet->save());
-        $this->assertFalse($fleet->hasErrors());
+        $this->assertTrue($fleet->hasErrors());
 
         $this->assertEquals('name cannot be empty!', $fleet->errors('name'));
     }

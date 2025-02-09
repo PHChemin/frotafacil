@@ -2,7 +2,7 @@
 <form 
 action="<?= route('trucks.update', ['fleet_id' => $truck->fleet()->get()->id, 'truck_id' => $truck->id])  ?>" 
 method="POST" 
-class="<?= $truck->hasErrors() ? '' : 'was-validated' ?>" 
+class="<?= $truck->hasErrors() ? 'was-validated' : '' ?>" 
 novalidate>
 <input type="hidden" name="_method" value="PUT">
     <div class="mb-3">

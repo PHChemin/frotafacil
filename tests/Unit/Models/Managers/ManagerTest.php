@@ -95,7 +95,7 @@ class ManagerTest extends TestCase
 
         $manager->validates();
 
-        $this->assertFalse($manager->hasErrors());
+        $this->assertTrue($manager->hasErrors());
         $this->assertTrue(in_array('user_id Este usuário já está associado a um driver.', $manager->getErrors()));
     }
 
@@ -105,7 +105,7 @@ class ManagerTest extends TestCase
 
         $manager->validates();
 
-        $this->assertFalse($manager->hasErrors());
+        $this->assertTrue($manager->hasErrors());
         $this->assertTrue(in_array('user_id O user_id não pode ser nulo.', $manager->getErrors()));
     }
 

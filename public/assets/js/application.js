@@ -3,12 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const imagePreviewInput = document.getElementById("image_preview_input");
   const preview = document.getElementById("image_preview");
   const imagePreviewSubmit = document.getElementById("image_preview_submit");
+  const openFileInputButton = document.getElementById("open_file_input");
 
   if (imagePreviewInput && preview && imagePreviewSubmit) {
     imagePreviewInput.style.display = "none";
     imagePreviewSubmit.style.display = "none";
 
     preview.addEventListener("click", function () {
+      imagePreviewInput.click();
+    });
+
+    openFileInputButton.addEventListener("click", function () {
       imagePreviewInput.click();
     });
 

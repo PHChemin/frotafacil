@@ -1,5 +1,5 @@
 <h1>Novo caminhão</h1>
-<form action="<?= route('trucks.create', ['fleet_id' => $truck->fleet()->get()->id]) ?>" method="POST" class="<?= $truck->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+<form action="<?= route('trucks.create', ['fleet_id' => $truck->fleet()->get()->id]) ?>" method="POST" class="<?= $truck->hasErrors() ? 'was-validated' : '' ?>" novalidate>
     <div class="mb-3">
         <label for="truck_brand" class="form-label mt-3">Marca:</label>
         <select 
