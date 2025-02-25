@@ -1,0 +1,50 @@
+<h1>Gerenciar Rotas do Caminhão</h1>
+
+<form action="<?= route('trucks.routes.store.update', ['fleet_id' => $truck->fleet()->get()->id, 'truck_id' => $truck->id]) ?>" method="POST" class="<?= $truck->hasErrors() ? 'was-validated' : '' ?>" novalidate>
+    <input type="hidden" name="_method" value="POST">
+    
+    <div class="mb-3">
+        <div class="fw-medium fs-4"><?= $truck->truckBrand()->get()->name ?> <?= $truck->model ?></div>
+        <div class="fs-5">Placa: <?= $truck->plate ?></div>
+    </div>
+
+    <div class="d-flex">
+        <!-- Rotas disponíveis -->
+        <div class="w-50 p-2 border">
+            <h3>Rotas Disponíveis</h3>
+            <ul id="available-routes" class="list-group">
+                <?php foreach ($allRoutes as $route): ?>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <?= $route->start_address ?> → <?= $route->arrival_address ?> | Valor: R$ <?= $route->value ?>
+                        <button type="button" class="btn btn-sm btn-success add-route" data-id="<?= $route->id ?>" id="add_route_<?= $route->id ?>">
+                            Adicionar
+                        </button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <!-- Rotas Selecionadas -->
+        <div class="w-50 p-2 border">
+            <h3>Rotas Selecionadas</h3>
+            <ul id="selected-routes" class="list-group">
+                <?php foreach ($truck->trucksRoutes()->get() as $index => $truckRoute): ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" data-id="<?= $truckRoute->route()->get()->id ?>">
+                        <span class="position"><?= $index + 1 ?>.</span>
+                        <?= $truckRoute->route()->get()->start_address ?> → <?= $truckRoute->route()->get()->arrival_address ?>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-secondary move-up" id="move_up_<?= $truckRoute->route()->get()->id ?>">↑</button>
+                            <button type="button" class="btn btn-sm btn-secondary move-down" id="move_down_<?= $truckRoute->route()->get()->id ?>">↓</button>
+                            <button type="button" class="btn btn-sm btn-danger remove-route" id="remove_route_<?= $truckRoute->route()->get()->id ?>">Remover</button>
+                        </div>
+                        <input type="hidden" name="routes[]" value="<?= $truckRoute->route()->get()->id ?>">
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-end mt-2">
+        <button id="submit_routes" type="submit" class="btn btn-success">Salvar</button>
+    </div>
+</form>

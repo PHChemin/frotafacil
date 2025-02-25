@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Core\Database\ActiveRecord\BelongsTo;
+use Core\Database\ActiveRecord\HasMany;
 use Core\Database\ActiveRecord\Model;
 use Lib\Validations;
 
@@ -45,6 +46,11 @@ class Truck extends Model
         return $this->belongsTo(TruckBrand::class, 'truck_brand_id');
     }
 
+    public function trucksRoutes(): HasMany
+    {
+        return $this->hasMany(TruckRoute::class, 'truck_id');
+    }
+
     /**
      * ------------------- VALIDATIONS & ERRORS ----------------------
      */
@@ -77,6 +83,10 @@ class Truck extends Model
 
     public function translateError(string | null $error): string
     {
+        if ($error === null) {
+            return '';
+        }
+
         $translations = [
             'has already been taken!' => 'Esta placa já está em uso!',
             'cannot be empty!' => 'O campo placa não pode estar vazio!',
