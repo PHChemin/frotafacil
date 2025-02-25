@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance\Fleets;
+namespace Tests\Acceptance\Routes;
 
 use App\Models\Driver;
 use App\Models\Fleet;
