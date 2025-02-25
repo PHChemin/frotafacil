@@ -63,14 +63,9 @@ class Truck extends Model
         Validations::notEmpty('plate', $this);
         Validations::notEmpty('fleet_id', $this);
         Validations::uniqueness(['plate'], $this);
-        if (!Validations::notEmpty('driver_id', $this)) {
-            return;
-        }
+        Validations::notEmpty('driver_id', $this);
 
         $this->driverExists();
-        if (self::driverHasTruck($this->driver_id)) {
-            $this->addError('driver_id', 'is already assigned to a truck!');
-        }
     }
 
     public function addError(string $attribute, string $message): void
@@ -103,7 +98,19 @@ class Truck extends Model
 
     private function driverExists(): bool
     {
+        if(!is_int($this->driver_id)) {
+            $driverId = (int) $this->driver_id;
+            if(!$driverId){
+                $this->addError('driver_id', 'does not exist!');
+                return false;
+            }  
+        }
+
         if (Driver::exist($this->driver_id)) {
+            if(self::driverHasTruck($this->driver_id, $this->id)){
+                $this->addError('driver_id', 'driver already has a truck!');
+                return false;
+            };
             return true;
         }
 
@@ -111,12 +118,19 @@ class Truck extends Model
         return false;
     }
 
-    public static function driverHasTruck(int $driverId): bool
+    public static function driverHasTruck(int $driverId, ?int $truckId = null): bool
     {
+        if(!is_int($driverId)) {
+            return false;
+        }
+
         $trucks = Truck::all();
 
         foreach ($trucks as $truck) {
             if ($truck->driver_id == $driverId) {
+                if ($truck->id == $truckId) {
+                    return false;
+                }
                 return true;
             }
         }
