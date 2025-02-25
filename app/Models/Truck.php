@@ -98,16 +98,16 @@ class Truck extends Model
 
     private function driverExists(): bool
     {
-        if(!is_int($this->driver_id)) {
+        if (!is_int($this->driver_id)) {
             $driverId = (int) $this->driver_id;
-            if(!$driverId){
+            if (!$driverId) {
                 $this->addError('driver_id', 'does not exist!');
                 return false;
-            }  
+            }
         }
 
         if (Driver::exist($this->driver_id)) {
-            if(self::driverHasTruck($this->driver_id, $this->id)){
+            if (self::driverHasTruck($this->driver_id, $this->id)) {
                 $this->addError('driver_id', 'driver already has a truck!');
                 return false;
             };
@@ -120,7 +120,7 @@ class Truck extends Model
 
     public static function driverHasTruck(int $driverId, ?int $truckId = null): bool
     {
-        if(!is_int($driverId)) {
+        if (!is_int($driverId)) {
             return false;
         }
 
