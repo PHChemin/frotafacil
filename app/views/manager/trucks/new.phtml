@@ -31,16 +31,23 @@
         <input type="text" value="<?= $truck->plate ?>" name="truck[plate]" class="form-control" id="truck_plate" required>
         <div class="invalid-feedback"> <?= $truck->translateError($truck->errors('plate')) ?> </div>
 
-        <div class="d-flex align-items-end">
-            <div class="w-100 me-3">
-                <label for="driver_id" class="form-label mt-3">ID do Motorista:</label>
-                <input type="text" value="<?= $truck->driver_id ?>" name="truck[driver_id]" class="form-control" id="driver_id" required>
-                <div class="invalid-feedback"><?= $truck->errors('driver_id') ? 'O campo id do motorista não pode estar vazio!' : '' ?></div>
+        <div>
+            <div class="d-flex align-items-end">
+                <div class="w-100 me-3">
+                    <label for="driver_cpf" class="form-label mt-3">CPF do Motorista:</label>
+                    <input type="text" class="form-control" id="driver_cpf" placeholder="Digite o CPF do motorista" required>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" id="buscar_motorista">Buscar</button>
+                </div>
             </div>
-            <div>
-                <a href="" class="btn btn-primary">Buscar</a>
-            </div>
+            <div id="cpf_feedback" class="text-danger mt-1"></div>
+            
+            <!-- Campo escondido para armazenar o ID do motorista -->
+            <input type="hidden" name="truck[driver_id]" id="driver_id" required>
+            <div class="text-danger"><?= $truck->errors('driver_id') ? 'O campo cpf do motorista contém erros!' : '' ?></div>
         </div>
+        
 
     </div>
     <div class="text-end">

@@ -62,9 +62,9 @@ class Truck extends Model
         Validations::notEmpty('color', $this);
         Validations::notEmpty('plate', $this);
         Validations::notEmpty('fleet_id', $this);
+        Validations::uniqueness(['plate'], $this);
         Validations::notEmpty('driver_id', $this);
 
-        Validations::uniqueness(['plate'], $this);
         $this->driverExists();
     }
 
@@ -98,11 +98,43 @@ class Truck extends Model
 
     private function driverExists(): bool
     {
+        if (!is_int($this->driver_id)) {
+            $driverId = (int) $this->driver_id;
+            if (!$driverId) {
+                $this->addError('driver_id', 'does not exist!');
+                return false;
+            }
+        }
+
         if (Driver::exist($this->driver_id)) {
+            if (self::driverHasTruck($this->driver_id, $this->id)) {
+                $this->addError('driver_id', 'driver already has a truck!');
+                return false;
+            };
             return true;
         }
 
         $this->addError('driver_id', 'does not exist!');
+        return false;
+    }
+
+    public static function driverHasTruck(int $driverId, ?int $truckId = null): bool
+    {
+        if (!is_int($driverId)) {
+            return false;
+        }
+
+        $trucks = Truck::all();
+
+        foreach ($trucks as $truck) {
+            if ($truck->driver_id == $driverId) {
+                if ($truck->id == $truckId) {
+                    return false;
+                }
+                return true;
+            }
+        }
+
         return false;
     }
 }

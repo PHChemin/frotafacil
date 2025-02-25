@@ -16,9 +16,11 @@ class TruckTest extends TestCase
 {
     private User $user;
     private User $user2;
+    private User $user3;
     private Truck $truck;
     private Fleet $fleet;
     private Driver $driver;
+    private Driver $driver2;
     private TruckBrand $truckBrand;
 
     public function setUp(): void
@@ -52,6 +54,17 @@ class TruckTest extends TestCase
         $this->driver = new Driver(['user_id' => $this->user2->id]);
         $this->driver->save();
 
+        $this->user3 = new User([
+            'cpf' => '12345678902',
+            'name' => 'Driver Test',
+            'email' => 'driver@example.com',
+            'password' => 'password123'
+        ]);
+        $this->user3->save();
+
+        $this->driver2 = new Driver(['user_id' => $this->user2->id]);
+        $this->driver2->save();
+
         $this->truckBrand = new TruckBrand(['name' => 'Scania']);
         $this->truckBrand->save();
 
@@ -73,7 +86,7 @@ class TruckTest extends TestCase
             'model' => 'Model Y',
             'color' => 'Blue',
             'plate' => 'DEF5678',
-            'driver_id' => $this->driver->id,
+            'driver_id' => $this->driver2->id,
         ]);
         $this->assertTrue($truck->save());
         $this->assertCount(2, Truck::all());
@@ -87,7 +100,7 @@ class TruckTest extends TestCase
             'model' => 'Model Y',
             'color' => 'Blue',
             'plate' => 'DEF5678',
-            'driver_id' => $this->driver->id,
+            'driver_id' => $this->driver2->id,
         ]);
         $trucks[1]->save();
 
@@ -103,7 +116,7 @@ class TruckTest extends TestCase
             'model' => 'Model Y',
             'color' => 'Blue',
             'plate' => 'DEF5678',
-            'driver_id' => $this->driver->id,
+            'driver_id' => $this->driver2->id,
         ]);
         $truck2->save();
         $this->assertCount(2, Truck::all());
@@ -138,7 +151,7 @@ class TruckTest extends TestCase
             'model' => 'Model Z',
             'color' => 'Green',
             'plate' => '',
-            'driver_id' => $this->driver->id,
+            'driver_id' => $this->driver2->id,
         ]);
 
         $this->assertFalse($truck->isValid());
@@ -155,7 +168,7 @@ class TruckTest extends TestCase
             'model' => 'Model Z',
             'color' => 'Green',
             'plate' => 'ABC1234',
-            'driver_id' => $this->driver->id,
+            'driver_id' => $this->driver2->id,
         ]);
         $this->assertFalse($truck2->save());
         $this->assertEquals('plate has already been taken!', $truck2->errors('plate'));
@@ -182,7 +195,7 @@ class TruckTest extends TestCase
             'model' => 'Model Z',
             'color' => 'Green',
             'plate' => 'XYZ9876',
-            'driver_id' => $this->driver->id,
+            'driver_id' => $this->driver2->id,
         ]);
         $truck2->save();
 

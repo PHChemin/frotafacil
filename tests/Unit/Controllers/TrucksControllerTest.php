@@ -13,8 +13,10 @@ class TrucksControllerTest extends ControllerTestCase
 {
     private User $user;
     private User $user2;
+    private User $user3;
     private Manager $manager;
     private Driver $driver;
+    private Driver $driver2;
     private Fleet $fleet;
     private Truck $truck;
     private TruckBrand $truckBrand;
@@ -44,11 +46,22 @@ class TrucksControllerTest extends ControllerTestCase
         ]);
         $this->user2->save();
 
+        $this->user3 = new User([
+            'cpf' => '12345678902',
+            'name' => 'Driver Test',
+            'email' => 'driver@example.com',
+            'password' => 'password123'
+        ]);
+        $this->user3->save();
+
         $this->manager = new Manager(['user_id' => $this->user->id]);
         $this->manager->save();
 
         $this->driver = new Driver(['user_id' => $this->user2->id]);
         $this->driver->save();
+
+        $this->driver2 = new Driver(['user_id' => $this->user2->id]);
+        $this->driver2->save();
 
         $this->fleet = new Fleet(['name' => 'Fleet of manager 1', 'manager_id' => $this->user->manager()->id]);
         $this->fleet->save();
@@ -105,7 +118,7 @@ class TrucksControllerTest extends ControllerTestCase
                 'color' => 'branco',
                 'plate' => 'ABC4B67',
                 'fleet_id' => $this->fleet->id,
-                'driver_id' => $this->driver->id
+                'driver_id' => $this->driver2->id
             ]];
 
         $response = $this->post(
@@ -127,7 +140,7 @@ class TrucksControllerTest extends ControllerTestCase
                 'color' => '',
                 'plate' => '',
                 'fleet_id' => $this->fleet->id,
-                'driver_id' => $this->driver->id
+                'driver_id' => $this->driver2->id
             ]];
 
         $response = $this->post(
@@ -150,7 +163,7 @@ class TrucksControllerTest extends ControllerTestCase
             'color' => 'branco',
             'plate' => 'ABC4B67',
             'fleet_id' => $fleet->id,
-            'driver_id' => $this->driver->id
+            'driver_id' => $this->driver2->id
         ]);
         $truck->save();
 
@@ -177,7 +190,7 @@ class TrucksControllerTest extends ControllerTestCase
             'color' => 'branco',
             'plate' => 'ABC4B67',
             'fleet_id' => $fleet->id,
-            'driver_id' => $this->driver->id
+            'driver_id' => $this->driver2->id
         ]);
         $truck->save();
 
@@ -214,7 +227,7 @@ class TrucksControllerTest extends ControllerTestCase
             'color' => 'branco',
             'plate' => 'ABC4B67',
             'fleet_id' => $fleet->id,
-            'driver_id' => $this->driver->id
+            'driver_id' => $this->driver2->id
         ]);
         $truck->save();
 
