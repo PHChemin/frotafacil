@@ -4,6 +4,7 @@ use App\Controllers\AuthenticationsController;
 use App\Controllers\DriversController;
 use App\Controllers\DriversProfileController;
 use App\Controllers\FleetsController;
+use App\Controllers\RoutesController;
 use App\Controllers\TrucksController;
 use Core\Router\Route;
 
@@ -49,5 +50,12 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/manager/fleets/{fleet_id}/trucks/{truck_id}', [TrucksController::class, 'destroy'])
             ->name('trucks.destroy');
+
+        // TRUCK ROUTES
+        Route::get('/manager/fleets/{fleet_id}/trucks/{truck_id}/routes', [RoutesController::class, 'routes'])
+            ->name('trucks.routes');
+
+        Route::post('/manager/fleets/{fleet_id}/trucks/{truck_id}/routes', [RoutesController::class, 'storeUpdate'])
+            ->name('trucks.routes.store.update');
     });
 });
