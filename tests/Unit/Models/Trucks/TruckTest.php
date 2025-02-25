@@ -8,6 +8,8 @@ use App\Models\Driver;
 use App\Models\TruckBrand;
 use App\Models\User;
 use App\Models\Manager;
+use App\Models\Route;
+use App\Models\TruckRoute;
 use Tests\TestCase;
 
 class TruckTest extends TestCase
@@ -108,6 +110,25 @@ class TruckTest extends TestCase
 
         $truck2->destroy();
         $this->assertCount(1, Truck::all());
+    }
+
+    public function test_should_return_trucks_routes(): void
+    {
+        $route = new Route([
+            'start_address' => 'Curitiba',
+            'arrival_address' => 'São Bento',
+            'distance' => 270,
+            'value' => 3000
+        ]);
+        $route->save();
+
+        $truckRoute = new TruckRoute([
+            'truck_id' => $this->truck->id,
+            'route_id' => $route->id
+        ]);
+        $truckRoute->save();
+
+        $this->assertCount(1, $this->truck->trucksRoutes()->get());
     }
 
     public function test_should_return_error_if_plate_is_empty(): void
