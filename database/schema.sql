@@ -81,7 +81,7 @@ CREATE TABLE trucks_routes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     truck_id INT NOT NULL,
     route_id INT NOT NULL,
-    FOREIGN KEY (truck_id) REFERENCES trucks(id) ON DELETE NO ACTION,
+    FOREIGN KEY (truck_id) REFERENCES trucks(id) ON DELETE CASCADE,
     FOREIGN KEY (route_id) REFERENCES routes(id) ON DELETE NO ACTION
 );
 
