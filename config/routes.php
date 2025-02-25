@@ -16,6 +16,9 @@ Route::post('/login', [AuthenticationsController::class, 'authenticate'])->name(
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthenticationsController::class, 'destroy'])->name('users.logout');
 
+    // API
+    Route::get('/api/driver/find-by-cpf', [DriversController::class, 'findByCpf'])->name('api.driver.find-by-cpf');
+
     Route::middleware('driver')->group(function () {
         Route::get('/driver', [DriversController::class, 'index'])->name('driver.index');
 
