@@ -22,7 +22,7 @@ class UsersPopulate
         $manager1 = new Manager(['user_id' => $user1->id]);
         $manager1->save();
 
-        $numberOfUsers = 4;
+        $numberOfUsers = 2;
 
         for ($i = 0; $i < $numberOfUsers; $i++) {
             $managerData = [
@@ -50,6 +50,21 @@ class UsersPopulate
 
         $driver = new Driver(['user_id' => $driverUser->id]);
         $driver->save();
+
+        for ($k = 0; $k < $numberOfUsers; $k++) {
+            $driverData = [
+                'name' => 'Driver '. $k . ' Name',
+                'email' => 'driver' . $k . '@example.com',
+                'cpf' => '1098765432' . ($k + 2),
+                'password' => 'password123'
+            ];
+
+            $driverUser = new User($driverData);
+            $driverUser->save();
+
+            $driver = new Driver(['user_id' => $driverUser->id]);
+            $driver->save();
+        }
 
         echo "Users populated successfully.\n";
     }
